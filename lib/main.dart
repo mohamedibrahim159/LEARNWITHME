@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnwithme/welcomeScreen.dart';
 
 import 'home.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Learn With Me',
       theme: ThemeData(),
 
-      home:home(),
+      home:WelcomeScreen(),
     );
   }
 }
