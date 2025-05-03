@@ -5,6 +5,7 @@ import 'package:learnwithme/registerScreen.dart';
 import 'package:learnwithme/welcomeScreen.dart';
 
 import 'home.dart';
+import 'introductionScreen.dart';
 
 void main() {
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Learn With Me',
       theme: ThemeData(),
 
-      home:genderScreen(),
+      home:introScreen(),
     );
   }
 }
