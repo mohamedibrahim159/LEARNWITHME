@@ -15,7 +15,7 @@ class WelcomeScreen extends StatelessWidget {
         height: screenSize.height,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/home_background.png'),
+            image: AssetImage('assets/images/home_background.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -30,7 +30,7 @@ class WelcomeScreen extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: 'MVBoli',
                   fontSize: 35,
-                  color: themeData.textclor,
+                  color: themeData.primarycolor,
                   fontWeight: FontWeight.w600,
                   height: 1.0,
                 ),
@@ -49,7 +49,7 @@ class WelcomeScreen extends StatelessWidget {
                   width: 10,
                   height: 10,
                   decoration: BoxDecoration(
-                    color: themeData.textclor,
+                    color: themeData.primarycolor,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -86,11 +86,12 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   elevation: 3,
                 ),
-                child: const Text(
+                child: Text(
                   'GET START',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
+                    color: themeData.blackColor,
                   ),
                 ),
               ),
@@ -98,7 +99,6 @@ class WelcomeScreen extends StatelessWidget {
 
             const SizedBox(height: 15),
 
-            // زر "I ALREADY HAVE AN ACCOUNT"
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: OutlinedButton(
@@ -116,8 +116,8 @@ class WelcomeScreen extends StatelessWidget {
                 child: const Text(
                   'I ALREADY HAVE AN ACCOUNT',
                   style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
