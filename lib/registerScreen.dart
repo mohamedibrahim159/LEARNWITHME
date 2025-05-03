@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:learnwithme/themeData.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  bool _isPasswordVisible = false;
-  bool _rememberMe = true;
+class _RegisterScreenState extends State<RegisterScreen> {
+  // تعريف المتغيرات اللازمة
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isPasswordVisible = false;
+  bool _rememberMe = true;
 
   @override
   void dispose() {
+    // التخلص من الـ controllers عند إغلاق الشاشة
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -26,19 +28,21 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // خلفية الشاشة مع الرسومات
+          // خلفية الشاشة
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/login_background.jpg'), // قم بتغيير هذا لصورة الخلفية الخاصة بك
+                image: AssetImage('assets/images/login_background.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
           ),
+
           // طبقة التعتيم لتحسين قراءة النص
           Container(
             color: Colors.black.withOpacity(0.3),
           ),
+
           // محتوى الشاشة
           SafeArea(
             child: Padding(
@@ -64,12 +68,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             vertical: 8,
                           ),
                         ),
-                        child: const Text('Sign up',
-                           style:TextStyle(
-                             fontFamily: 'MVBoli',
-                                 fontWeight: FontWeight.bold,
-                             fontSize: 20,
-                           )
+                        child: const Text('Sign in', // تصحيح من 'Sign up' إلى 'Sign in' كما في الصورة
+                            style: TextStyle(
+                              fontFamily: 'MVBoli',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            )
                         ),
                       ),
                       OutlinedButton(
@@ -101,10 +105,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   // نص الترحيب
                   Text(
-                    'welcome back!',
+                    'Hello!', // تصحيح النص ليتطابق مع الصورة
                     style: TextStyle(
                       fontSize: 32,
-                      fontFamily: 'MVBoli', // خط مناسب للنص المكتوب يدويًا
+                      fontFamily: 'MVBoli',
                       color: themeData.primarycolor,
                       fontWeight: FontWeight.bold,
                     ),
@@ -114,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   // نص التعليمات
                   Text(
-                    'Enter your email and password',
+                    'Register to get started', // تصحيح النص ليتطابق مع الصورة
                     style: TextStyle(
                       fontSize: 21,
                       color: themeData.secondarycolor,
@@ -125,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 30),
 
-                  // حقل البريد الإلكتروني
+                  // إضافة حقل اسم المستخدم (Username) كما في الصورة
                   Container(
                     height: 55,
                     decoration: BoxDecoration(
@@ -133,14 +137,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: TextField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.text,
                       style: const TextStyle(color: Colors.black87),
                       decoration: InputDecoration(
-                        hintText: 'Email',
+                        hintText: 'Username',
                         hintStyle: TextStyle(color: Colors.grey.shade500),
                         prefixIcon: Icon(
-                          Icons.mail_outline,
+                          Icons.person_outline,
                           color: Colors.grey.shade600,
                         ),
                         border: InputBorder.none,
@@ -190,52 +193,60 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 16),
+
+                  // حقل البريد الإلكتروني
+                  Container(
+                    height: 55,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: TextField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      style: const TextStyle(color: Colors.black87),
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: TextStyle(color: Colors.grey.shade500),
+                        prefixIcon: Icon(
+                          Icons.mail_outline,
+                          color: Colors.grey.shade600,
+                        ),
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+
                   const SizedBox(height: 20),
 
-                  // خيارات التذكر ونسيان كلمة المرور
+                  // خيار تذكرني (إزالة نسيان كلمة المرور كما في الصورة)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Switch(
-                              value: _rememberMe,
-                              onChanged: (value) {
-                                setState(() {
-                                  _rememberMe = value;
-                                });
-                              },
-                              activeColor: Colors.amber,
-                              activeTrackColor: Colors.amber.withOpacity(0.5),
-                              inactiveThumbColor: Colors.white,
-                              inactiveTrackColor: Colors.grey.withOpacity(0.5),
-                            ),
-                            const Text(
-                              'Remember me',
-                              style: TextStyle(
-                                fontFamily: 'MVBoli',
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
+                        Switch(
+                          value: _rememberMe,
+                          onChanged: (value) {
+                            setState(() {
+                              _rememberMe = value;
+                            });
+                          },
+                          activeColor: themeData.primarycolor,
+                          activeTrackColor: themeData.primarycolor.withOpacity(0.5),
+                          inactiveThumbColor: Colors.white,
+                          inactiveTrackColor: Colors.grey.withOpacity(0.5),
                         ),
-                        TextButton(
-                          onPressed: () {},
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            minimumSize: Size.zero,
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),
-                          child: const Text(
-                            'Forget password',
-                            style: TextStyle(
-                              fontFamily: 'MVBoli',
-                              color: Colors.white,
-                              fontSize: 15,
-                            ),
+                        const Text(
+                          'Remember me',
+                          style: TextStyle(
+                            fontFamily: 'MVBoli',
+                            color: Colors.white,
+                            fontSize: 15,
                           ),
                         ),
                       ],
@@ -243,27 +254,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // زر تسجيل الدخول
-                  Container(
+                  // زر تسجيل
+                  SizedBox(
                     height: 55,
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
+                        backgroundColor: themeData.primarycolor, // تغيير لون الزر ليتطابق مع الصورة
                         foregroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: themeData.whitecolor
-                          ),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         elevation: 0,
                       ),
                       child: Text(
-                        'Log in',
+                        'Register', // تغيير النص ليتطابق مع الصورة
                         style: TextStyle(
-                          color: themeData.whitecolor,
+                          color: themeData.blackColor,
                           fontFamily: 'MVBoli',
                           fontSize: 20,
                           fontWeight: FontWeight.w900,
@@ -300,21 +308,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 40),
 
                   // أزرار تسجيل الدخول الاجتماعي
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       // زر تسجيل الدخول بواسطة Google
-                      Container(
+                      SizedBox(
                         height: 45,
                         child: ElevatedButton.icon(
                           onPressed: () {},
                           icon: Image.asset(
                             'assets/images/google_icon.png',
-                            height: 30,
-                            width: 30,
+                            height: 24,
+                            width: 24,
                           ),
                           label: const Text(
                             'Google',
@@ -334,13 +342,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 100),
+                      const SizedBox(width: 20),
+
                       // زر تسجيل الدخول بواسطة Facebook
-                      Container(
+                      SizedBox(
                         height: 45,
                         child: ElevatedButton.icon(
                           onPressed: () {},
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.facebook,
                             color: Colors.blue,
                             size: 24,
@@ -370,7 +379,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   // زر الرجوع
                   Align(
-                    alignment: Alignment.bottomLeft,
+                    alignment: Alignment.bottomLeft, // تغيير الموضع ليتطابق مع الصورة
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 20),
                       child: OutlinedButton(
@@ -387,14 +396,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         child: const Text('Back',
-                        style: TextStyle(
-                          fontFamily: 'MVBoli',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        )
+                            style: TextStyle(
+                              fontFamily: 'MVBoli',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            )
+                        ),
                       ),
                     ),
-                  ),
                   ),
                 ],
               ),
@@ -404,6 +413,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-// حذف دوال المساعدة غير المستخدمة
 }

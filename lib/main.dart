@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnwithme/loginScreen.dart';
+import 'package:learnwithme/registerScreen.dart';
 import 'package:learnwithme/welcomeScreen.dart';
 
 import 'home.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Learn With Me',
       theme: ThemeData(),
 
-      home:LoginScreen(),
+      home:RegisterScreen(),
     );
   }
 }
