@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnwithme/ForgetPassScreen.dart';
 import 'package:learnwithme/genderScreen.dart';
 import 'package:learnwithme/loginScreen.dart';
 import 'package:learnwithme/registerScreen.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Learn With Me',
       theme: ThemeData(),
 
-      home:introScreen(),
+      home:ForgotPasswordScreen(),
     );
   }
 }
