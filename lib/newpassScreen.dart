@@ -31,35 +31,40 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(35.0),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 255,
-                    ),
-                    Container(
-                      height: 35,
-                      width: 86,
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 3,
+                child: InkWell(
+                  onTap: () {
+
+                  },
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 255,
+                      ),
+                      Container(
+                        height: 35,
+                        width: 86,
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 3,
+                          ),
+                        ),
+                        child: const Text(
+                          'Skip',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'MVBoli',
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                      child: const Text(
-                        'Skip',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'MVBoli',
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
