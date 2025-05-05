@@ -4,6 +4,7 @@ import 'package:learnwithme/ageSelectionScreen.dart';
 import 'package:learnwithme/genderScreen.dart';
 import 'package:learnwithme/loginScreen.dart';
 import 'package:learnwithme/registerScreen.dart';
+import 'package:learnwithme/verifyEmail.dart';
 import 'package:learnwithme/welcomeScreen.dart';
 
 import 'home.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       title: 'Learn With Me',
       theme: ThemeData(),
 
-      home:AgeSelectionScreen(),
+      home:EmailVerificationScreen(),
     );
   }
 }
