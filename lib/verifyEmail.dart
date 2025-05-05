@@ -139,15 +139,15 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: PinCodeTextField(
                     appContext: context,
-                    length: 4,
+                    length: 6,
                     controller: _pinController,
                     obscureText: false,
                     animationType: AnimationType.fade,
                     pinTheme: PinTheme(
                       shape: PinCodeFieldShape.box,
                       borderRadius: BorderRadius.circular(8),
-                      fieldHeight: 50,
-                      fieldWidth: 50,
+                      fieldHeight: 40,
+                      fieldWidth: 40,
                       activeFillColor: Colors.white,
                       inactiveFillColor: Colors.white,
                       selectedFillColor: Colors.white,
@@ -163,7 +163,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     enableActiveFill: true,
                     onChanged: (value) {
                       setState(() {
-                        isButtonEnabled = value.length == 4;
+                        isButtonEnabled = value.length == 6;
                       });
                     },
                   ),

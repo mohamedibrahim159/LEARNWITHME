@@ -3,6 +3,7 @@ import 'package:learnwithme/ForgetPassScreen.dart';
 import 'package:learnwithme/ageSelectionScreen.dart';
 import 'package:learnwithme/genderScreen.dart';
 import 'package:learnwithme/loginScreen.dart';
+import 'package:learnwithme/newpassScreen.dart';
 import 'package:learnwithme/registerScreen.dart';
 import 'package:learnwithme/verifyEmail.dart';
 import 'package:learnwithme/welcomeScreen.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       title: 'Learn With Me',
       theme: ThemeData(),
 
-      home:EmailVerificationScreen(),
+      home:PasswordCreationScreen(),
     );
   }
 }
