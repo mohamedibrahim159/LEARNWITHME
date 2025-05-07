@@ -8,6 +8,7 @@ import 'package:learnwithme/registerScreen.dart';
 import 'package:learnwithme/verifyEmail.dart';
 import 'package:learnwithme/welcomeScreen.dart';
 
+import 'MainScreen.dart';
 import 'forLearnerScreen.dart';
 import 'home.dart';
 import 'introductionScreen.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       title: 'Learn With Me',
       theme: ThemeData(),
 
-      home:LearnerProfileScreen(),
+      home:AnimalsScreen(),
     );
   }
 }

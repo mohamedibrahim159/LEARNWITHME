@@ -20,8 +20,8 @@ class themeData {
     primaryColor: primarycolor,
     scaffoldBackgroundColor: Colors.transparent,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      selectedItemColor: blackColor,
-      backgroundColor: Color(0xffB7935F),
+      elevation: 0,
+
     ),
     textTheme: TextTheme(
       bodyMedium: TextStyle(
