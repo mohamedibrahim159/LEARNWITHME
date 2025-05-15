@@ -186,7 +186,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ),
                       ),
                       child: const Text(
-                        'Send reset Link',
+                        'Send OTP',
                         style: TextStyle(
                           fontSize: 27,
                           fontWeight: FontWeight.w800,
@@ -198,7 +198,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 140),
+                const SizedBox(height: 90),
 
                 // Back Button
                 Padding(

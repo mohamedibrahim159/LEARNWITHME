@@ -221,7 +221,7 @@ class _genderScreenState extends State<genderScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 40),
+                    SizedBox(height: 20),
                     // Back button
                     Container(
                       alignment: AlignmentDirectional.topStart,

@@ -208,7 +208,7 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 70),
+                    const SizedBox(height: 20),
                     // Back Button
                     Row(
                       children: [

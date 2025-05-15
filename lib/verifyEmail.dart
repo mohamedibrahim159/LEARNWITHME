@@ -218,7 +218,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   ),
                 ),
 SizedBox(
-  height: 80,
+  height: 20,
 ),
                 Row(
                   children: [
