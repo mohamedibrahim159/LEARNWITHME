@@ -8,33 +8,66 @@ class LearnerProfileScreen extends StatefulWidget {
 }
 
 class _LearnerProfileScreenState extends State<LearnerProfileScreen> {
-  int selectedAgeGroup = 2; // Default to Age 7-8 (index 2)
-
+  int selectedAgeGroup = 2;
+  String learnerName = "Learner 1";
   final List<String> ageGroups = [
     'Age 4-5',
     'Age 6-7',
     'Age 7-8',
   ];
 
+  void _editName() async {
+    final controller = TextEditingController(text: learnerName);
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: const Text(
+          "Edit Name",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            hintText: "Enter new name",
+          ),
+          autofocus: true,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("Cancel"),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(controller.text.trim()),
+            child: const Text("Save"),
+          ),
+        ],
+      ),
+    );
+    if (result != null && result.isNotEmpty) {
+      setState(() {
+        learnerName = result;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFF40C4C8),
       body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Top navigation with back button and "For parents" button
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 25.0),
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: size.height * 0.03),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () {
-                      // Handle back navigation
-                    },
+                    onPressed: () {},
                   ),
                   ElevatedButton.icon(
                     icon: const Icon(Icons.person, color: Color(0xFF40C4C8), size: 25),
@@ -53,75 +86,50 @@ class _LearnerProfileScreenState extends State<LearnerProfileScreen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       elevation: 0,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: 8),
                     ),
-                    onPressed: () {
-                      // Handle "For parents" action
-                    },
+                    onPressed: () {},
                   ),
                 ],
               ),
             ),
-
-            // Learner profile section
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 70),
-
-                    // Astronaut avatar
-                    Center(
-                      child: Container(
-                        width: 138,
-                        height: 138,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: Image.asset(
-                            'assets/images/child_pic.png', // Replace with your actual asset path
-                            width: 300,
-                            height: 300,
-                            errorBuilder: (context, error, stackTrace) {
-                              // Fallback if image asset not found
-                              return const Icon(
-                                Icons.person,
-                                size: 40,
-                                color: Colors.black54,
-                              );
-                            },
-                          ),
+                    SizedBox(height: size.height * 0.08),
+                    Container(
+                      width: size.width * 0.35,
+                      height: size.width * 0.35,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/icons/child_pic.png',
+                          width: size.width * 0.6,
+                          height: size.width * 0.6,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.person, size: 40, color: Colors.black54);
+                          },
                         ),
                       ),
                     ),
-
-                    const SizedBox(height: 10),
-
-                    // Learner name with edit button
+                    SizedBox(height: size.height * 0.015),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(
-                            Icons.edit,
-                            size: 25,
-                            color: Colors.black,
-                          ),
+                        GestureDetector(
+                          onTap: _editName,
+                          child: const Icon(Icons.edit, size: 25, color: Colors.black),
                         ),
-                        const SizedBox(width: 8),
-
-                        const Text(
-                          'Learner 1',
-                          style: TextStyle(
+                        SizedBox(width: size.width * 0.02),
+                        Text(
+                          learnerName,
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
@@ -129,76 +137,58 @@ class _LearnerProfileScreenState extends State<LearnerProfileScreen> {
                         ),
                       ],
                     ),
-
-                    const SizedBox(height: 6),
-
-                    // Learner track status
-                    const Center(
-                      child: Text(
-                        'Learner track active now',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'MVBoli'
-                        ),
+                    SizedBox(height: size.height * 0.01),
+                    const Text(
+                      'Learner track active now',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
+                        fontFamily: 'MVBoli',
                       ),
                     ),
-
-                    const SizedBox(height: 40),
-
-                    // Age group selection buttons
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: ageGroups.length,
-                      itemBuilder: (context, index) {
-                        final bool isSelected = selectedAgeGroup == index;
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 30.0,left: 80,right: 80,top: 10),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Colors.black,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              padding: const EdgeInsets.symmetric(vertical: 15),
+                    SizedBox(height: size.height * 0.05),
+                    ...List.generate(ageGroups.length, (index) {
+                      final isSelected = selectedAgeGroup == index;
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: size.height * 0.015, horizontal: size.width * 0.1),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              selectedAgeGroup = index;
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
                             ),
-                            onPressed: () {
-                              setState(() {
-                                selectedAgeGroup = index;
-                              });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  ageGroups[index],
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'MVBoli',
-                                  ),
-                                ),
-                                // Reserve space for icon even if not selected
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: isSelected
-                                      ? const Icon(
-                                    Icons.check,
-                                    color: Color(0xff42D13C),
-                                    size: 30,
-                                  )
-                                      : const SizedBox(width: 25), // Empty space for unselected
-                                ),
-                              ],
-                            ),
-
+                            padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
                           ),
-                        );
-                      },
-                    ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                ageGroups[index],
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: isSelected
+                                    ? const Icon(Icons.check, color: Color(0xff42D13C), size: 30)
+                                    : const SizedBox(width: 25),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+                    SizedBox(height: size.height * 0.03),
                   ],
                 ),
               ),

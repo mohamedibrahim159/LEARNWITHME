@@ -23,11 +23,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       debugShowCheckedModeBanner: false,
       title: 'Learn With Me',
       theme: ThemeData(),
-      home:WelcomeScreen(),
+      home:EmailVerificationScreen(),
     );
   }
 }

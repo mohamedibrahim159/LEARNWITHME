@@ -19,10 +19,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image with Overlay
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -35,208 +36,157 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
             ),
           ),
-
-          // Content
           SafeArea(
-            child: Column(
-              children: [
-                // Skip Button at top right
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(
-                            color: themeData.whitecolor,
-                          )
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide(color: themeData.whitecolor),
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: 8),
                         ),
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      ),
-                      child: const Text(
-                        'Skip',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 19,
-                          fontFamily: 'MVBoli'
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                // Forgot Password Text
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Text(
-                    'Forgot password',
-                    style: TextStyle(
-                      fontFamily: 'MVBoli',
-                      fontSize: 35,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-
-                const SizedBox(height: 340),
-
-                // Please enter your Email text
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Text(
-                    'please enter your Email',
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontFamily: 'MVBoli',
-                      fontWeight: FontWeight.w800,
-                      shadows: [
-                        Shadow(
-                          blurRadius: 8.0,
-                          color: Colors.black38,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                // Email Text Field
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: Container(
-                    height: 75,
-                    width: 338,
-                    decoration: BoxDecoration(
-                      border: Border.fromBorderSide(BorderSide(
-                        width: 3,
-                        color: themeData.whitecolor,
-
-                      )),
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: TextField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        prefixIcon: Container(
-                          padding: EdgeInsets.all(8),
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            children: [
-                              ImageIcon(
-                                AssetImage('assets/images/email.png'),
-                                size: 50,
-                                color: themeData.whitecolor,
-
-                              ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Container(
-                                color: themeData.whitecolor,
-                                height: 1000,
-                                width: 3,
-                              )
-                            ],
+                        child: const Text(
+                          'Skip',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 19,
+                            fontFamily: 'MVBoli',
                           ),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 200,
-                          horizontal: 16,
-                        ),
                       ),
                     ),
-                  ),
-                ),
-
-                const SizedBox(height: 24),
-
-                // Send Reset Link Button
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: Container(
-                    height: 61,
-                    width: 340,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Logic for sending reset link
-                        if (_emailController.text.isNotEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Reset link sent to your email'),
-                            ),
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff326F4F),
-                        minimumSize: const Size(double.infinity, 56),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
+                    SizedBox(height: size.height * 0.001),
+                    const Text(
+                      'Forgot password',
+                      style: TextStyle(
+                        fontFamily: 'MVBoli',
+                        fontSize: 35,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
                       ),
-                      child: const Text(
-                        'Send OTP',
-                        style: TextStyle(
-                          fontSize: 27,
-                          fontWeight: FontWeight.w800,
-                          fontFamily: 'MVBoli',
-                          color: Colors.white
-                        ),
-                      ),
+                      textAlign: TextAlign.center,
                     ),
-                  ),
-                ),
-
-                const SizedBox(height: 90),
-
-                // Back Button
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 0.0,
-                      right: 300.0,
-                      bottom: 24.0
-                  ),
-                  child: TextButton(
-                    onPressed: () {
-                      // Logic to go back
-                      Navigator.of(context).pop();
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          color: themeData.whitecolor,
-                          width: 1.4
-                        ),
+                    SizedBox(height: size.height * 0.33),
+                    const Text(
+                      'please enter your Email',
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                        fontFamily: 'MVBoli',
+                        fontWeight: FontWeight.w800,
+                        shadows: [
+                          Shadow(
+                            blurRadius: 8.0,
+                            color: Colors.black38,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: size.height * 0.025),
+                    Container(
+                      height: 75,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: themeData.whitecolor, width: 3),
+                        color: Colors.transparent,
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 8
+                      child: Row(
+                        children: [
+                          SizedBox(width: 12),
+                          ImageIcon(
+                            const AssetImage('assets/icons/email.png'),
+                            size: 30,
+                            color: themeData.whitecolor,
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            color: themeData.whitecolor,
+                            width: 2,
+                            height: 40,
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: TextField(
+                              controller: _emailController,
+                              style: const TextStyle(color: Colors.white),
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(color: Colors.white60),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    child: const Text(
-                      'Back',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 19,
-                        fontFamily: 'MVBoli'
+                    SizedBox(height: size.height * 0.03),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 61,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_emailController.text.isNotEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Reset link sent to your email'),
+                              ),
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff326F4F),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text(
+                          'Send OTP',
+                          style: TextStyle(
+                            fontSize: 27,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: 'MVBoli',
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    SizedBox(height: size.height * 0.16),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide(color: themeData.whitecolor, width: 1.4),
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: size.width * 0.06, vertical: 8),
+                        ),
+                        child: const Text(
+                          'Back',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 19,
+                            fontFamily: 'MVBoli',
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: size.height * 0.02),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ],

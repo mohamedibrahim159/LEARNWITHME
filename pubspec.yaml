@@ -25,7 +25,8 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/
-
+    - assets/Animals/
+    - assets/icons/
   fonts:
     - family: MVBoli
       fonts:

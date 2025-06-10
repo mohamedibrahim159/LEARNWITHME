@@ -12,13 +12,49 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  void _submitPassword() {
+    if (_passwordController.text == _confirmPasswordController.text &&
+        _passwordController.text.isNotEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Password created successfully! 🎉'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Passwords do not match. حاول تاني!'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final double screenWidth = size.width;
+    final double fieldWidth = screenWidth * 0.85;
+    final double buttonWidth = screenWidth * 0.85;
+
     return Scaffold(
       body: Container(
+        width: double.infinity,
+        height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/createnewpassword_background.jpg'),
+            image: const AssetImage('assets/images/createnewpassword_background.jpg'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
               Colors.green.withOpacity(0.3),
@@ -27,34 +63,24 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
           ),
         ),
         child: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(35.0),
-                child: InkWell(
-                  onTap: () {
-
-                  },
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 255,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      height: 35,
+                      width: 86,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Colors.white, width: 3),
                       ),
-                      Container(
-                        height: 35,
-                        width: 86,
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 3,
-                          ),
-                        ),
-                        child: const Text(
+                      child: Center(
+                        child: Text(
                           'Skip',
-                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'MVBoli',
                             color: Colors.white,
@@ -63,191 +89,153 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Create New password',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: 'MVBoli'
-                ),
-              ),
-              const SizedBox(height: 20),
-              const SizedBox(height: 300),
+                  const SizedBox(height: 2),
+                  const Text(
+                    'Create New password',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontFamily: 'MVBoli',
+                    ),
+                  ),
+                  const SizedBox(height: 330),
 
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Container(
-                      alignment: AlignmentDirectional.centerStart,
-
-                      child: Text(
-                        "  New Password",
-                        style: TextStyle(
-                          color: themeData.whitecolor,
-                          fontSize: 18,
-                          fontFamily: 'MVBoli',
-                          fontWeight: FontWeight.bold
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "  New Password",
+                      style: TextStyle(
+                        color: themeData.whitecolor,
+                        fontSize: 18,
+                        fontFamily: 'MVBoli',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                    width: fieldWidth,
+                    height: 65,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: themeData.whitecolor, width: 3),
+                    ),
+                    child: TextField(
+                      controller: _passwordController,
+                      obscureText: _obscurePassword,
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(16),
+                        border: InputBorder.none,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                            color: themeData.whitecolor,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
                         ),
                       ),
                     ),
-                    SizedBox(height: 5),
-                    // New Password Field
-                    Container(
-                      height: 68,
-                      width: 338,
+                  ),
+                  const SizedBox(height: 15),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "  Confirm Password",
+                      style: TextStyle(
+                        color: themeData.whitecolor,
+                        fontSize: 18,
+                        fontFamily: 'MVBoli',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                    width: fieldWidth,
+                    height: 65,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: themeData.whitecolor, width: 3),
+                    ),
+                    child: TextField(
+                      controller: _confirmPasswordController,
+                      obscureText: _obscureConfirmPassword,
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(16),
+                        border: InputBorder.none,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
+                            color: themeData.whitecolor,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscureConfirmPassword = !_obscureConfirmPassword;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  SizedBox(
+                    width: buttonWidth,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: _submitPassword,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff326F4F),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(17),
+                        ),
+                      ),
+                      child: const Text(
+                        'Submit',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 80),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      height: 35,
+                      width: 86,
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(15),
-                        border: Border.fromBorderSide(BorderSide(
-                          color: themeData.whitecolor,
-                          width: 3
-                        ))
+                        border: Border.all(color: Colors.white, width: 3),
                       ),
                       child: Center(
-                        child: TextField(
-                          obscureText: _obscurePassword,
-                          textAlign: TextAlign.left,
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.all(16),
-                            border: InputBorder.none,
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _obscurePassword
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: themeData.whitecolor,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _obscurePassword = !_obscurePassword;
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      alignment: AlignmentDirectional.centerStart,
-
-                      child: Text(
-                        "  Confirm Password",
-                        style: TextStyle(
-                            color: themeData.whitecolor,
-                            fontSize: 18,
-                            fontFamily: 'MVBoli',
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ),
-                    // Confirm Password Field
-                    Container(
-                      height: 68,
-                      width: 338,
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.fromBorderSide(BorderSide(
-                              color: themeData.whitecolor,
-                              width: 3
-                          ))
-                      ),
-                      child: Center(
-                        child: TextField(
-                          obscureText: _obscurePassword,
-                          textAlign: TextAlign.left,
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.all(16),
-                            border: InputBorder.none,
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _obscurePassword
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: themeData.whitecolor,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _obscurePassword = !_obscurePassword;
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    // Submit Button
-                    SizedBox(
-                      width: 338,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff326F4F),
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: const Text(
-                          'Submit',
+                        child: Text(
+                          'Back',
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                            fontFamily: 'MVBoli',
                             color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    // Back Button
-                    Row(
-                      children: [
-                        Container(
-                          height: 35,
-                          width: 86,
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 3,
-                            ),
-                          ),
-                          child: const Text(
-                            'Back',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'MVBoli',
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      width: 2,
-
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
