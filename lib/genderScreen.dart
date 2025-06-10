@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:learnwithme/themeData.dart';
 
-class genderScreen extends StatefulWidget {
-  const genderScreen({super.key});
+class GenderScreen extends StatefulWidget {
+  const GenderScreen({super.key});
 
   @override
-  State<genderScreen> createState() => _genderScreenState();
+  State<GenderScreen> createState() => _GenderScreenState();
 }
 
-class _genderScreenState extends State<genderScreen> {
+class _GenderScreenState extends State<GenderScreen> {
   String? selectedGender;
   final TextEditingController nameController = TextEditingController();
 
   @override
+  void dispose() {
+    nameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
+        width: size.width,
+        height: size.height,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/genderscreen_background.jpg'),
@@ -25,114 +33,76 @@ class _genderScreenState extends State<genderScreen> {
           ),
         ),
         child: SafeArea(
-          child: Column(
-            children: [
-              // Top section with Skip button and title
-              SizedBox(height: 25),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 16.0,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // Skip button at top right
-                  Container(
-                  alignment: AlignmentDirectional.topStart,
-                  child: SizedBox(
-                    height: 35,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: size.height * 0.0001),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                  child: Align(
+                    alignment: Alignment.topRight,
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
+                        elevation: 0,
                         shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: themeData.whitecolor,
-                            width: 3,
-                          ),
+                          side: BorderSide(color: themeData.whitecolor, width: 3),
                           borderRadius: BorderRadius.circular(17),
                         ),
-                        elevation: 0,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 2,
-                        ),
                       ),
-                      child: const Text(
-                        'Skip',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: const Text('Skip', style: TextStyle(color: Colors.white, fontSize: 20)),
                     ),
-                  )),
-                  ],
-                ),
-              ),
-              SizedBox(height: 34),
-              // Title text
-              const Padding(
-                padding: EdgeInsets.only(top: 8.0),
-                child: Text(
-                  "What are your kid's gender\nand name?",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontFamily: 'MVBoli',
                   ),
                 ),
-              ),
-              SizedBox(height: 20),
 
-              // Gender selection circles
-              Container(
-                width: double.infinity,
-                height: 290,
-                color: Color(0xff89AFC9).withOpacity(0.8),
+                SizedBox(height: size.height * 0.03),
 
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _buildGenderOption('Boy', 'assets/images/boy_image.png'),
-                    const SizedBox(width: 0),
-                    _buildGenderOption('Girl', 'assets/images/girl_image.png'),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: 15),
-
-              // Name input field
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                      child: Text(
-                        'Name of Kid',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontFamily:
-                              'MVBoli', // تأكدي إنه مضاف في pubspec.yaml
-                        ),
-                      ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
+                  child: const Text(
+                    "What are your kid's gender\nand name?",
+                    style: TextStyle(
+                      fontSize: 27,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontFamily: 'MVBoli',
                     ),
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                      child: Container(
+                  ),
+                ),
+
+                SizedBox(height: size.height * 0.03),
+
+                Container(
+                  width: size.width,
+                  height: size.height * 0.35,
+                  color: const Color(0xff89AFC9).withOpacity(0.4),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _genderOption('Boy', 'assets/images/boy_image.png', size),
+                      _genderOption('Girl', 'assets/images/girl_image.png', size),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: size.height * 0.01),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Name of Kid', style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'MVBoli',fontWeight: FontWeight.w900)),
+
+                      SizedBox(height: size.height * 0.015),
+
+                      Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.white, width: 2.5),
                           borderRadius: BorderRadius.circular(30),
-                          color: Colors.transparent,
                         ),
                         child: TextField(
                           controller: nameController,
@@ -140,198 +110,124 @@ class _genderScreenState extends State<genderScreen> {
                           cursorColor: Colors.white,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 14,
-                            ),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
 
-              SizedBox(height: 100),
-              InkWell(
-                onTap: () {
+                SizedBox(height: size.height * 0.04),
 
-                },
-                child: Column(
-                  children: [
-                    Column(
+                Center(
+                  child: InkWell(
+                    onTap: () {},
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(
-                          height: 2,
-                        ),
                         Text(
-
                           'prefer not answer',
-                          style: TextStyle(color: themeData.whitecolor, fontSize: 15,
-                            height: 1
+                          style: TextStyle(color: Colors.white, fontSize: 15),
+                        ),
+                        SizedBox(height: 0.07),
+                        Container(
+                          width: size.width * 0.29,
+                          child: Divider(
+                            color: Colors.white,
+                            thickness: 1,
+                            height: 1,
                           ),
                         ),
-                        Divider(
-                          color: themeData.whitecolor,
-                          thickness: 1.5,
-                          indent: 150,
-                          endIndent: 150,
-                          height: 2,
-                        )
                       ],
                     ),
+                  ),
+                ),
 
 
-                  ],
-                ),
-              ),
-              // Bottom buttons
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40.0,
-                  vertical: 16.0,
-                ),
-                child: Column(
-                  children: [
-                    // Next button
-                    Container(
-                      width: double.infinity,
-                      margin: const EdgeInsets.only(bottom: 12.0),
-                      child: ElevatedButton(
+                SizedBox(height: size.height * 0.03),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
+                  child: Column(
+                    children: [
+                      ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          elevation: 0,
+                          padding: EdgeInsets.symmetric(vertical: size.height * 0.02,horizontal:size.width * 0.36 ),
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              color: themeData.whitecolor,
-                              width: 3,
-                            ),
+                            side: BorderSide(color: themeData.whitecolor, width: 2),
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          elevation: 0,
                         ),
-                        child: const Text(
-                          'Next',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
+                        child: const Text('Next',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                       ),
-                    ),
-                    SizedBox(height: 40),
-                    // Back button
-                    Container(
-                      alignment: AlignmentDirectional.topStart,
-                      child: SizedBox(
-                        height: 35,
+
+                      SizedBox(height: size.height * 0.03),
+
+                      Align(
+                        alignment: Alignment.bottomLeft,
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                color: themeData.whitecolor,
-                                width: 3,
-                              ),
-                              borderRadius: BorderRadius.circular(17),
-                            ),
                             elevation: 0,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 15,
-                              vertical: 2,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(color: themeData.whitecolor, width: 3),
+                              borderRadius: BorderRadius.circular(19),
                             ),
                           ),
-                          child: const Text(
-                            'Back',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          child: const Text('Back',
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
                         ),
                       ),
-                    ),
-                  ],
+
+                      SizedBox(height: size.height * 0.03),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildGenderOption(String gender, String imagePath) {
-    final bool isSelected = selectedGender == gender;
+  Widget _genderOption(String gender, String imagePath, Size size) {
+    bool selected = selectedGender == gender;
 
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedGender = gender;
-        });
-      },
+      onTap: () => setState(() => selectedGender = gender),
       child: Column(
         children: [
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            width: 140,
-            height: 170,
-            child: Stack(
-              clipBehavior: Clip.none, // مهم علشان ميقصش الصورة
-              alignment: Alignment.center,
-              children: [
-                // الدائرة
-                Container(
-                  width: 140,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: themeData.primarycolor.withOpacity(0.7),
-                    border: Border.all(
-                      color: isSelected ? themeData.babybluecolor : Colors.transparent,
-                      width: 5.0,
-                    ),
-                  ),
+          SizedBox(height: size.height * 0.015),
+          Stack(
+            alignment: Alignment.center,
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                width: size.width * 0.32,
+                height: size.width * 0.32,
+                decoration: BoxDecoration(
+                  color: themeData.primarycolor.withOpacity(0.7),
+                  shape: BoxShape.circle,
+                  border: selected ? Border.all(color: themeData.babybluecolor, width: 5) : null,
                 ),
-                // صورة الطفل طالعة فوق
-                Positioned(
-                  top: -5,
-                  child: Image.asset(
-                    imagePath,
-                    width: 200,
-                    height: 170,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ],
-            ),
+              ),
+              Positioned(
+                top: -size.height * 0.02,
+                child: Image.asset(imagePath, width: size.width * 0.45, height: size.height * 0.2),
+              ),
+            ],
           ),
-          const SizedBox(height: 70),
-          Text(
-            gender,
-            style: const TextStyle(
-              color: Colors.white,
-              fontFamily: 'MVBoli',
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          SizedBox(height: size.height * 0.06),
+          Text(gender, style: const TextStyle(color: Colors.white, fontSize: 30, fontFamily: 'MVBoli', fontWeight: FontWeight.w700)),
         ],
       ),
     );
-  }
-
-
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    super.dispose();
   }
 }

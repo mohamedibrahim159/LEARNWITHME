@@ -21,7 +21,6 @@ class themeData {
     scaffoldBackgroundColor: Colors.transparent,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 0,
-
     ),
     textTheme: TextTheme(
       bodyMedium: TextStyle(
