@@ -14,7 +14,6 @@ import 'home.dart';
 import 'introductionScreen.dart';
 
 void main() {
-
   runApp(const MyApp());
 }
 
@@ -26,8 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Learn With Me',
       theme: ThemeData(),
-      home:EmailVerificationScreen(),
+      home: WelcomeScreen(),
     );
   }
 }
-

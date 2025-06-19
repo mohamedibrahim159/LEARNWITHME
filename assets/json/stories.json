@@ -1,0 +1,18 @@
+[
+  {
+    "story_id": 1,
+    "category_id": 4,
+    "title": "The Ugly Duckling",
+    "video_url": "https://hemdanmohamed44.runasp.net/video/Stories/UglyDuckling.mp4",
+    "photo_url": "https://hemdanmohamed44.runasp.net/images/Stories/UglyDuckling.png",
+    "category": null
+  },
+  {
+    "story_id": 2,
+    "category_id": 4,
+    "title": "Rabbit and Clever Fox",
+    "video_url": "https://hemdanmohamed44.runasp.net/video/Stories/RabbitAndCleverFox.mp4",
+    "photo_url": "https://hemdanmohamed44.runasp.net/images/Stories/RabbitAndCleverFox.png",
+    "category": null
+  }
+]

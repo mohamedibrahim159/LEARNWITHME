@@ -1,132 +1,188 @@
 import 'package:flutter/material.dart';
+import 'package:learnwithme/MainScreen.dart';
+import 'package:learnwithme/models/animals_model.dart';
+import 'package:learnwithme/repos/animals_repo.dart';
+import 'AnimalDetailScreen.dart';
 
-class MainPage extends StatelessWidget {
-  // قائمة الحيوانات
-  final List<Map<String, dynamic>> animals = [
-    {"name": "Lion", "image": "assets/animals/Lion.png"},
-    {"name": "Tiger", "image": "assets/animals/Tiger.png"},
-    {"name": "Sheep", "image": "assets/animals/Sheep.png"},
-    {"name": "Cheetah", "image": "assets/animals/Cheetah.png"},
-    {"name": "Fox", "image": "assets/animals/Fox.png"},
-    {"name": "Rooster", "image": "assets/animals/Rooster.png"},
-    {"name": "Duck", "image": "assets/animals/Duck.png"},
-    {"name": "Elephant", "image": "assets/animals/Elephant.png"},
-    {"name": "Cow", "image": "assets/animals/Cow.png"},
-    {"name": "Dog", "image": "assets/animals/Dog.png"},
-    {"name": "Rabbit", "image": "assets/animals/Rabbit.png"},
-    {"name": "Monkey", "image": "assets/animals/Monkey.png"},
-    {"name": "Zebra", "image": "assets/animals/Zebra.png"},
-    {"name": "Fish", "image": "assets/animals/Fish.png"},
-  ];
+class AnimalGridScreen extends StatelessWidget {
+  const AnimalGridScreen({super.key});
+
+  // final List<Map<String, String>> animals = const [
+  //   {"name": "Cheeta", "image": "assets/Animals/cheeta.png"},
+  //   {"name": "Cow", "image": "assets/Animals/cow.png"},
+  //   {"name": "Dog", "image": "assets/Animals/dog.png"},
+  //   {"name": "Duck", "image": "assets/Animals/Duck.png"},
+  //   {"name": "Elephant", "image": "assets/Animals/elephant.png"},
+  //   {"name": "Fish", "image": "assets/Animals/fish.png"},
+  //   {"name": "Fox", "image": "assets/Animals/fox.png"},
+  //   {"name": "Lion", "image": "assets/Animals/lion.png"},
+  //   {"name": "Monkey", "image": "assets/Animals/monkey.png"},
+  //   {"name": "Rabbit", "image": "assets/Animals/rabbit.png"},
+  //   {"name": "Rooster", "image": "assets/Animals/rooster.png"},
+  //   {"name": "Sheep", "image": "assets/Animals/sheep.png"},
+  //   {"name": "Tiger", "image": "assets/Animals/tiger.png"},
+  //   {"name": "Turtle", "image": "assets/Animals/turtle.png"},
+  //   {"name": "Zebra", "image": "assets/Animals/zepra.png"},
+  // ];
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      backgroundColor: Color(0xFFB3E5FC), // سماوي فاتح
-      appBar: AppBar(
-        backgroundColor: Color(0xFF81D4FA),
-        elevation: 0,
-        toolbarHeight: 70,
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Learner Info
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundImage: AssetImage("assets/icons/learner.png"),
+      backgroundColor: const Color(0xFF83C9F4),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.06,
+                  vertical: size.height * 0.02,
                 ),
-                SizedBox(width: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text("Learner", style: TextStyle(fontSize: 16, color: Colors.white)),
-                    Text("Age 7-8", style: TextStyle(fontSize: 12, color: Colors.white)),
-                  ],
-                ),
-              ],
-            ),
-            // For Parents Button
-            ElevatedButton(
-              onPressed: () {
-                // TODO: فتح صفحة الآباء
-              },
-              child: Text("For parents"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [_buildProfile(), _buildForParents()],
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: GridView.builder(
-          itemCount: animals.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
-            childAspectRatio: 0.9,
-          ),
-          itemBuilder: (context, index) {
-            final animal = animals[index];
-            return GestureDetector(
-              onTap: () {
-                print("Pressed on ${animal['name']}");
-                // TODO: افتح صفحة تفاصيل الحيوان أو استدعي API
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(14),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade400,
-                      blurRadius: 4,
-                      offset: Offset(2, 2),
-                    ),
-                  ],
-                ),
+
+              Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(
-                    animal['image'],
-                    fit: BoxFit.contain,
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
+                  child: FutureBuilder<List<AnimalsModel>>(
+                    future: AnimalsRepo.fetchAnimals(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Center(child: Text('No animals found'));
+                      }
+
+                      final animals = snapshot.data!;
+
+                      return GridView.builder(
+                        itemCount: animals.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              childAspectRatio: 0.85,
+                              crossAxisSpacing: 12,
+                              mainAxisSpacing: 12,
+                            ),
+                        itemBuilder: (context, index) {
+                          final animal = animals[index];
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (_) => AnimalDetailScreen(
+                                        animalId: animal.animalId,
+                                      ),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              padding: const EdgeInsets.all(8),
+                              child: Image.asset(
+                                animal.photoUrl,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
               ),
-            );
-          },
+              Container(
+                height: 70,
+                color: const Color(0xFF2874F0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Image.asset(
+                      'assets/icons/profile.png',
+                      height: 30,
+                      width: 30,
+                    ),
+                    Image.asset(
+                      'assets/icons/abc_icon.png',
+                      height: 30,
+                      width: 30,
+                    ),
+                    Image.asset(
+                      'assets/icons/book_icon.png',
+                      height: 30,
+                      width: 30,
+                    ),
+                    Image.asset(
+                      'assets/icons/numbers_icon.png',
+                      height: 30,
+                      width: 30,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        items:  [
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/dog_icon.png'), size: 28),
-            label: '',
+    );
+  }
+
+  Widget _buildProfile() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Row(
+        children: [
+          CircleAvatar(
+            backgroundColor: Colors.grey.shade300,
+            radius: 15,
+            child: const Icon(Icons.person, size: 18, color: Colors.black),
           ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/abc_icon.png'), size: 28),
-            label: '',
+          const SizedBox(width: 8),
+          const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Learner',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+              Text('Age 7-8', style: TextStyle(fontSize: 10)),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/book_icon.png'), size: 28),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/numbers_icon.png'), size: 28),
-            label: '',
+        ],
+      ),
+    );
+  }
+
+  Widget _buildForParents() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Row(
+        children: const [
+          Icon(Icons.supervisor_account, color: Colors.black, size: 20),
+          SizedBox(width: 8),
+          Text(
+            'For parents',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
           ),
         ],
       ),

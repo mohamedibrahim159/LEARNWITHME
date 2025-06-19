@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnwithme/MainScreen.dart';
 import 'package:learnwithme/themeData.dart';
 
 class IntroScreen extends StatelessWidget {
@@ -32,7 +33,8 @@ class IntroScreen extends StatelessWidget {
                           alignment: AlignmentDirectional.centerStart,
                           child: _buildTestimonialCard(
                             title: 'Joy for kid and parent',
-                            content: 'A blessing for those parents who are at pains to make up their kid\'s screen-time. weeks my minor is in the app, and we keep counting.',
+                            content:
+                                'A blessing for those parents who are at pains to make up their kid\'s screen-time. weeks my minor is in the app, and we keep counting.',
                             userName: 'Fouad yasser',
                             avatarColor: Colors.teal,
                             avatarText: 'F',
@@ -43,7 +45,8 @@ class IntroScreen extends StatelessWidget {
                           alignment: AlignmentDirectional.centerEnd,
                           child: _buildTestimonialCard(
                             title: 'app is wonderful platform',
-                            content: 'My picky daughter really enjoys the app, and I find the content and the overall feel it gives just amazing.',
+                            content:
+                                'My picky daughter really enjoys the app, and I find the content and the overall feel it gives just amazing.',
                             userName: 'Etrefaag',
                             avatarColor: Colors.green,
                             avatarText: 'E',
@@ -54,7 +57,8 @@ class IntroScreen extends StatelessWidget {
                           alignment: AlignmentDirectional.centerStart,
                           child: _buildTestimonialCard(
                             title: 'Great app',
-                            content: 'pushes logic and memory up. puzzles vary in difficulty, and that adapts to your kid\'s learning pace. perfect!',
+                            content:
+                                'pushes logic and memory up. puzzles vary in difficulty, and that adapts to your kid\'s learning pace. perfect!',
                             userName: 'Hamdan',
                             avatarColor: Colors.blue,
                             avatarText: 'H',
@@ -63,7 +67,8 @@ class IntroScreen extends StatelessWidget {
                         ),
                         _buildTestimonialCard(
                           title: 'thank you app',
-                          content: 'the best app I\'ve seen so far. tons of fascinating puzzles. but the main thing is that kids do learn with it!',
+                          content:
+                              'the best app I\'ve seen so far. tons of fascinating puzzles. but the main thing is that kids do learn with it!',
                           userName: 'Mohamed',
                           avatarColor: Colors.amber,
                           avatarText: 'M',
@@ -77,11 +82,20 @@ class IntroScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AnimalsScreen(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       foregroundColor: Colors.transparent,
-                      padding: EdgeInsets.symmetric(vertical: size.height * 0.021),
+                      padding: EdgeInsets.symmetric(
+                        vertical: size.height * 0.021,
+                      ),
                       shape: RoundedRectangleBorder(
                         side: BorderSide(color: themeData.whitecolor),
                         borderRadius: BorderRadius.circular(35),

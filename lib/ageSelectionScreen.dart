@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnwithme/introductionScreen.dart';
 import 'package:learnwithme/themeData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,7 +27,14 @@ class AgeSelectionScreen extends StatelessWidget {
                 child: SizedBox(
                   height: size.height * 0.05,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const IntroScreen(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       shape: RoundedRectangleBorder(

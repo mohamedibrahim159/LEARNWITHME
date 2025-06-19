@@ -1,0 +1,115 @@
+[
+ {
+  "animal_id": 1,
+  "category_id": 3,
+  "animal_name": "Cheetah",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Cheetah.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Cheetah.png",
+  "category": null
+},
+{
+  "animal_id": 2,
+  "category_id": 3,
+  "animal_name": "Cow",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Cow.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Cow.png",
+  "category": null
+},
+{
+  "animal_id": 3,
+  "category_id": 3,
+  "animal_name": "Dog",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Dog.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Dog.png",
+  "category": null
+},
+{
+  "animal_id": 4,
+  "category_id": 3,
+  "animal_name": "Duck",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Duck.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Duck.png",
+  "category": null
+},
+{
+  "animal_id": 5,
+  "category_id": 3,
+  "animal_name": "Elephant",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Elephant.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Elephant.png",
+  "category": null
+},
+{
+  "animal_id": 6,
+  "category_id": 3,
+  "animal_name": "Fish",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Fish.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Fish.png",
+  "category": null
+},
+{
+  "animal_id": 7,
+  "category_id": 3,
+  "animal_name": "Fox",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Fox.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Fox.png",
+  "category": null
+},
+{
+  "animal_id": 8,
+  "category_id": 3,
+  "animal_name": "Lion",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Lion.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Lion.png",
+  "category": null
+},
+{
+  "animal_id": 9,
+  "category_id": 3,
+  "animal_name": "Monkey",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Monkey.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Monkey.png",
+  "category": null
+},
+{
+  "animal_id": 10,
+  "category_id": 3,
+  "animal_name": "Rabbit",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Rabbit.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Rabbit.png",
+  "category": null
+},
+{
+  "animal_id": 11,
+  "category_id": 3,
+  "animal_name": "Rooster",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Rooster.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Rooster.png",
+  "category": null
+},
+{
+  "animal_id": 12,
+  "category_id": 3,
+  "animal_name": "Sheep",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Sheep.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Sheep.png",
+  "category": null
+},
+{
+  "animal_id": 13,
+  "category_id": 3,
+  "animal_name": "Tiger",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Tiger.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Tiger.png",
+  "category": null
+},
+{
+  "animal_id": 14,
+  "category_id": 3,
+  "animal_name": "Zebra",
+  "audio_url": "https://hemdanmohamed44.runasp.net/audio/Animals/Zebra.mp3",
+  "photo_url": "https://hemdanmohamed44.runasp.net/images/Animals/Zebra.png",
+  "category": null
+}
+
+]

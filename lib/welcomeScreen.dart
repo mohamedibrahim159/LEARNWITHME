@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:learnwithme/loginScreen.dart';
 import 'package:learnwithme/themeData.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -22,9 +23,7 @@ class WelcomeScreen extends StatelessWidget {
         child: Column(
           children: [
             const Spacer(flex: 3),
-            SizedBox(
-              height: screenSize.height * 0.4,
-            ),
+            SizedBox(height: screenSize.height * 0.4),
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
@@ -70,7 +69,14 @@ class WelcomeScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.1),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.green.shade800,
