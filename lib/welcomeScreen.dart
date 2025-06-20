@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:learnwithme/loginScreen.dart';
 import 'package:learnwithme/themeData.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -22,21 +23,19 @@ class WelcomeScreen extends StatelessWidget {
         child: Column(
           children: [
             const Spacer(flex: 3),
-            SizedBox(
-              height: 600,
-            ),
+            SizedBox(height: screenSize.height * 0.4),
             RichText(
+              textAlign: TextAlign.center,
               text: TextSpan(
                 style: TextStyle(
                   fontFamily: 'MVBoli',
-                  fontSize: 35,
+                  fontSize: screenSize.width * 0.07,
                   color: themeData.primarycolor,
                   fontWeight: FontWeight.w600,
-                  height: 1.0,
                 ),
-                children: [
+                children: const [
                   TextSpan(text: 'fun adventure to learn\n'),
-                  TextSpan(text: '       letters'),
+                  TextSpan(text: 'letters'),
                 ],
               ),
             ),
@@ -46,17 +45,17 @@ class WelcomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 10,
-                  height: 10,
+                  width: screenSize.width * 0.025,
+                  height: screenSize.width * 0.025,
                   decoration: BoxDecoration(
                     color: themeData.primarycolor,
                     shape: BoxShape.circle,
                   ),
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: screenSize.width * 0.025),
                 Container(
-                  width: 10,
-                  height: 10,
+                  width: screenSize.width * 0.025,
+                  height: screenSize.width * 0.025,
                   decoration: BoxDecoration(
                     color: themeData.whitecolor,
                     shape: BoxShape.circle,
@@ -65,22 +64,23 @@ class WelcomeScreen extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 20),
+            SizedBox(height: screenSize.height * 0.025),
 
-            // زر "GET START"
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
+              padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.1),
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => const MainGameScreen()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.green.shade800,
-                  minimumSize: const Size(double.infinity, 55),
+                  minimumSize: Size(double.infinity, screenSize.height * 0.07),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -89,7 +89,7 @@ class WelcomeScreen extends StatelessWidget {
                 child: Text(
                   'GET START',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: screenSize.width * 0.05,
                     fontWeight: FontWeight.bold,
                     color: themeData.blackColor,
                   ),
@@ -97,33 +97,31 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 15),
+            SizedBox(height: screenSize.height * 0.015),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
+              padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.1),
               child: OutlinedButton(
-                onPressed: () {
-                  // عرض نموذج تسجيل الدخول
-                },
+                onPressed: () {},
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  minimumSize: const Size(double.infinity, 55),
+                  minimumSize: Size(double.infinity, screenSize.height * 0.07),
                   side: const BorderSide(color: Colors.white),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: const Text(
+                child: Text(
                   'I ALREADY HAVE AN ACCOUNT',
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: screenSize.width * 0.04,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
             ),
 
-            const SizedBox(height: 30),
+            SizedBox(height: screenSize.height * 0.03),
           ],
         ),
       ),

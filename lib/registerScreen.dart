@@ -9,7 +9,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  // تعريف المتغيرات اللازمة
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
@@ -17,7 +16,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void dispose() {
-    // التخلص من الـ controllers عند إغلاق الشاشة
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -25,11 +23,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Stack(
         children: [
-          // خلفية الشاشة
           Container(
+            width: size.width,
+            height: size.height,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/login_background.jpg'),
@@ -37,379 +38,198 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
           ),
-
-          // طبقة التعتيم لتحسين قراءة النص
           Container(
             color: Colors.black.withOpacity(0.3),
           ),
-
-          // محتوى الشاشة
           SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // أزرار التنقل العلوية
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      OutlinedButton(
-                        onPressed: () {},
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: themeData.primarycolor,
-                          foregroundColor: themeData.blackColor,
-                          side: BorderSide(color: themeData.primarycolor, width: 3),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: size.height * 0.02),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () {},
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: themeData.primarycolor,
+                            foregroundColor: themeData.blackColor,
+                            side: BorderSide(color: themeData.primarycolor, width: 3),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                            padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: 8),
                           ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
-                        ),
-                        child: const Text('Sign in', // تصحيح من 'Sign up' إلى 'Sign in' كما في الصورة
+                          child: const Text(
+                            'Sign in',
                             style: TextStyle(
                               fontFamily: 'MVBoli',
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
-                            )
-                        ),
-                      ),
-                      OutlinedButton(
-                        onPressed: () {},
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          side: const BorderSide(color: Colors.white70, width: 3),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
+                            ),
                           ),
                         ),
-                        child: const Text('Skip',
-                          style: TextStyle(
-                            fontFamily: 'MVBoli',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                        OutlinedButton(
+                          onPressed: () {},
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            side: const BorderSide(color: Colors.white70, width: 3),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                            padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: 8),
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  // المساحة قبل العنوان
-                  const Spacer(flex: 1),
-
-                  // نص الترحيب
-                  Text(
-                    'Hello!', // تصحيح النص ليتطابق مع الصورة
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontFamily: 'MVBoli',
-                      color: themeData.primarycolor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                  const SizedBox(height: 6),
-
-                  // نص التعليمات
-                  Text(
-                    'Register to get started', // تصحيح النص ليتطابق مع الصورة
-                    style: TextStyle(
-                      fontSize: 21,
-                      color: themeData.secondarycolor,
-                      fontFamily: 'MVBoli',
-                      fontWeight: FontWeight.w800,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                  const SizedBox(height: 30),
-
-                  // إضافة حقل اسم المستخدم (Username) كما في الصورة
-                  Container(
-                    height: 55,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: TextField(
-                      keyboardType: TextInputType.text,
-                      style: const TextStyle(color: Colors.black87),
-                      decoration: InputDecoration(
-                        hintText: 'Username',
-                        hintStyle: TextStyle(color: Colors.grey.shade500),
-                        prefixIcon: Icon(
-                          Icons.person_outline,
-                          color: Colors.grey.shade600,
-                        ),
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  // حقل كلمة المرور
-                  Container(
-                    height: 55,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: TextField(
-                      controller: _passwordController,
-                      obscureText: !_isPasswordVisible,
-                      style: const TextStyle(color: Colors.black87),
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                        hintStyle: TextStyle(color: Colors.grey.shade500),
-                        prefixIcon: Icon(
-                          Icons.lock_outline,
-                          color: Colors.grey.shade600,
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
-                            color: Colors.grey.shade600,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
-                            });
-                          },
-                        ),
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  // حقل البريد الإلكتروني
-                  Container(
-                    height: 55,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: TextField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      style: const TextStyle(color: Colors.black87),
-                      decoration: InputDecoration(
-                        hintText: 'Email',
-                        hintStyle: TextStyle(color: Colors.grey.shade500),
-                        prefixIcon: Icon(
-                          Icons.mail_outline,
-                          color: Colors.grey.shade600,
-                        ),
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // خيار تذكرني (إزالة نسيان كلمة المرور كما في الصورة)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Row(
-                      children: [
-                        Switch(
-                          value: _rememberMe,
-                          onChanged: (value) {
-                            setState(() {
-                              _rememberMe = value;
-                            });
-                          },
-                          activeColor: themeData.primarycolor,
-                          activeTrackColor: themeData.primarycolor.withOpacity(0.5),
-                          inactiveThumbColor: Colors.white,
-                          inactiveTrackColor: Colors.grey.withOpacity(0.5),
-                        ),
-                        const Text(
-                          'Remember me',
-                          style: TextStyle(
-                            fontFamily: 'MVBoli',
-                            color: Colors.white,
-                            fontSize: 15,
+                          child: const Text(
+                            'Skip',
+                            style: TextStyle(
+                              fontFamily: 'MVBoli',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  // زر تسجيل
-                  SizedBox(
-                    height: 55,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: themeData.primarycolor, // تغيير لون الزر ليتطابق مع الصورة
-                        foregroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        elevation: 0,
-                      ),
-                      child: Text(
-                        'Register', // تغيير النص ليتطابق مع الصورة
-                        style: TextStyle(
-                          color: themeData.blackColor,
-                          fontFamily: 'MVBoli',
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900,
-                        ),
+                    SizedBox(height: size.height * 0.06),
+                    Text(
+                      'Hello!',
+                      style: TextStyle(
+                        fontSize: size.width * 0.08,
+                        fontFamily: 'MVBoli',
+                        color: themeData.primarycolor,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  // خط فاصل مع نص
-                  Row(
-                    children: const [
-                      Expanded(
-                        child: Divider(
-                          color: Colors.white54,
-                          thickness: 1,
-                        ),
+                    SizedBox(height: 6),
+                    Text(
+                      'Register to get started',
+                      style: TextStyle(
+                        fontSize: size.width * 0.05,
+                        color: themeData.secondarycolor,
+                        fontFamily: 'MVBoli',
+                        fontWeight: FontWeight.w800,
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          'or login with',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
+                    ),
+                    SizedBox(height: size.height * 0.04),
+                    buildTextField('Username', Icons.person_outline),
+                    SizedBox(height: size.height * 0.02),
+                    buildTextField('Password', Icons.lock_outline, isPassword: true),
+                    SizedBox(height: size.height * 0.02),
+                    buildTextField('Email', Icons.mail_outline, controller: _emailController),
+                    SizedBox(height: size.height * 0.02),
+                    Row(
+                      children: [
+                        Switch(
+                          value: _rememberMe,
+                          onChanged: (value) => setState(() => _rememberMe = value),
+                          activeColor: themeData.primarycolor,
+                        ),
+                        const Text(
+                          'Remember me',
+                          style: TextStyle(fontFamily: 'MVBoli', color: Colors.white, fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: size.height * 0.02),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: themeData.primarycolor,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                        padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
+                      ),
+                      child: Text(
+                        'Register',
+                        style: TextStyle(fontFamily: 'MVBoli', fontSize: 20, fontWeight: FontWeight.w900,color: themeData.blackColor),
+                      ),
+                    ),
+                    SizedBox(height: size.height * 0.03),
+                    Row(
+                      children: [
+                        Expanded(child: Divider(color: Colors.white54, thickness: 1)),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
+                          child: const Text(
+                            'or login with',
+                            style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          color: Colors.white54,
-                          thickness: 1,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 40),
-
-                  // أزرار تسجيل الدخول الاجتماعي
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // زر تسجيل الدخول بواسطة Google
-                      SizedBox(
-                        height: 45,
-                        child: ElevatedButton.icon(
+                        Expanded(child: Divider(color: Colors.white54, thickness: 1)),
+                      ],
+                    ),
+                    SizedBox(height: size.height * 0.03),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton.icon(
                           onPressed: () {},
-                          icon: Image.asset(
-                            'assets/images/google_icon.png',
-                            height: 24,
-                            width: 24,
-                          ),
-                          label: const Text(
-                            'Google',
-                            style: TextStyle(
-                              fontFamily: 'MVBoli',
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                          icon: Image.asset('assets/icons/google_icon.png', height: 24, width: 24),
+                          label: const Text('Google', style: TextStyle(fontFamily: 'MVBoli', color: Colors.black87)),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(22),
-                            ),
-                            elevation: 0,
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+                            padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 20),
-
-                      // زر تسجيل الدخول بواسطة Facebook
-                      SizedBox(
-                        height: 45,
-                        child: ElevatedButton.icon(
+                        ElevatedButton.icon(
                           onPressed: () {},
-                          icon: const Icon(
-                            Icons.facebook,
-                            color: Colors.blue,
-                            size: 24,
-                          ),
-                          label: const Text(
-                            'Facebook',
-                            style: TextStyle(
-                              fontFamily: 'MVBoli',
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                          icon: const Icon(Icons.facebook, color: Colors.blue, size: 24),
+                          label: const Text('Facebook', style: TextStyle(fontFamily: 'MVBoli', color: Colors.black87)),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(22),
-                            ),
-                            elevation: 0,
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+                            padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-
-                  const Spacer(),
-
-                  // زر الرجوع
-                  Align(
-                    alignment: Alignment.bottomLeft, // تغيير الموضع ليتطابق مع الصورة
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
+                      ],
+                    ),
+                    SizedBox(height: size.height * 0.05),
+                    Align(
+                      alignment: Alignment.bottomLeft,
                       child: OutlinedButton(
                         onPressed: () {},
                         style: OutlinedButton.styleFrom(
                           foregroundColor: Colors.white,
                           side: const BorderSide(color: Colors.white70, width: 3),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 30,
-                            vertical: 8,
-                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          padding: EdgeInsets.symmetric(horizontal: size.width * 0.07, vertical: 8),
                         ),
-                        child: const Text('Back',
-                            style: TextStyle(
-                              fontFamily: 'MVBoli',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            )
+                        child: const Text(
+                          'Back',
+                          style: TextStyle(fontFamily: 'MVBoli', fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: size.height * 0.03),
+                  ],
+                ),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget buildTextField(String hint, IconData icon, {bool isPassword = false, TextEditingController? controller}) {
+    return Container(
+      height: 55,
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(30)),
+      child: TextField(
+        controller: controller,
+        obscureText: isPassword ? !_isPasswordVisible : false,
+        decoration: InputDecoration(
+          hintText: hint,
+          hintStyle: TextStyle(color: Colors.grey.shade500),
+          prefixIcon: Icon(icon, color: Colors.grey.shade600),
+          suffixIcon: isPassword
+              ? IconButton(
+            icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility, color: Colors.grey.shade600),
+            onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+          )
+              : null,
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        ),
       ),
     );
   }

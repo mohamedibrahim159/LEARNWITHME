@@ -1,0 +1,18 @@
+[
+  {
+    "letter_id": 1,
+    "category_id": 1,
+    "letter": "A",
+    "audio_url": "https://hemdanmohamed44.runasp.net/audio/Alphabets/A.mp3",
+    "photo_url": "https://hemdanmohamed44.runasp.net/images/Alphabets/A.png",
+    "category": null
+  },
+  {
+    "letter_id": 2,
+    "category_id": 1,
+    "letter": "B",
+    "audio_url": "https://hemdanmohamed44.runasp.net/audio/Alphabets/B.mp3",
+    "photo_url": "https://hemdanmohamed44.runasp.net/images/Alphabets/B.png",
+    "category": null
+  }
+]
