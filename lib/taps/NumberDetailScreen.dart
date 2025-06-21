@@ -22,6 +22,27 @@ class numberDetailScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
+        Positioned(
+          top: 50,
+          left: 25,
+          child: SafeArea(
+            child: GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.8),
+                  shape: BoxShape.circle,
+                ),
+                child: Image.asset(
+                  'assets/icons/arrow_icon.png',
+                  width: 40,
+                  height: 40,
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

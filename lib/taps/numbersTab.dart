@@ -26,48 +26,51 @@ class numbersTab extends StatelessWidget {
     return Container(
       color: const Color(0xFFCDECC5),
       padding: const EdgeInsets.all(12),
-      child: GridView.builder(
-        itemCount: numbersData.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: crossAxisCount,
-          mainAxisSpacing: spacing,
-          crossAxisSpacing: spacing,
-          childAspectRatio: itemWidth / itemHeight,
-        ),
-        itemBuilder: (context, index) {
-          final item = numbersData[index];
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => numberDetailScreen(
-                    number: item['number']!,
-                    letter: '',
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: GridView.builder(
+          itemCount: numbersData.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            mainAxisSpacing: spacing,
+            crossAxisSpacing: spacing,
+            childAspectRatio: itemWidth / itemHeight,
+          ),
+          itemBuilder: (context, index) {
+            final item = numbersData[index];
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => numberDetailScreen(
+                      number: item['number']!,
+                      letter: '',
+                    ),
                   ),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 4,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(14),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 4,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
+                padding: const EdgeInsets.all(8),
+                child: Image.asset(
+                  item['image']!,
+                  fit: BoxFit.contain,
+                ),
               ),
-              padding: const EdgeInsets.all(8),
-              child: Image.asset(
-                item['image']!,
-                fit: BoxFit.contain,
-              ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
