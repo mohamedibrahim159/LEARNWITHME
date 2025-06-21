@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:learnwithme/numbersTab.dart';
-import 'package:learnwithme/lettersTab.dart';
-import 'package:learnwithme/storyTab.dart';
-import 'AnimalsTap.dart';
+import 'package:learnwithme/taps/numbersTab.dart';
+import 'package:learnwithme/taps/lettersTab.dart';
+import 'package:learnwithme/taps/storyTab.dart';
+import 'taps/AnimalsTap.dart';
+import 'package:flutter/services.dart';
+
 
 class AnimalsScreen extends StatefulWidget {
   @override
@@ -19,6 +21,20 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     AnimalsTab(),
   ];
 
+  final List<List<Color>> tabGradients = [
+    [Color(0xFFD5EECF), Color(0xFFC2E0BB)],
+    [Color(0xFFBCE6FA), Color(0xFF91D5F0)],
+    [Color(0xFFC7E9B0), Color(0xFFA1D98B)],
+    [Color(0xFF4C99E0), Color(0xFF2A75C4)],
+  ];
+
+  final List<Color> tabAccentColors = [
+    Color(0xFF6FA26D),
+    Color(0xFF45A0C4),
+    Color(0xFF74B35A),
+    Color(0xFF2A75C4),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -28,11 +44,11 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color(0xFF4C99E0), Color(0xFF2A75C4)],
+              colors: tabGradients[selectedIndex],
             ),
           ),
           child: SafeArea(
@@ -48,6 +64,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                         label: 'For parents',
                         isRightAligned: true,
                         width: screenWidth * 0.38,
+                        color: tabAccentColors[selectedIndex],
                       ),
                       _buildHeaderButton(
                         icon: Icons.person,
@@ -55,6 +72,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                         subLabel: 'Age 7-8',
                         isRightAligned: true,
                         width: screenWidth * 0.38,
+                        color: tabAccentColors[selectedIndex],
                       ),
                     ],
                   ),
@@ -67,7 +85,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
         bottomNavigationBar: Container(
           height: 80,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.8),
+            color: tabAccentColors[selectedIndex].withOpacity(0.8),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -114,6 +132,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     String? subLabel,
     bool isRightAligned = false,
     required double width,
+    required Color color,
   }) {
     return Container(
       width: width,
@@ -132,7 +151,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
       ),
       child: Row(
         children: [
-          if (!isRightAligned) Icon(icon, size: 20, color: Color(0xFF2A75C4)),
+          if (!isRightAligned) Icon(icon, size: 20, color: color),
           if (!isRightAligned) const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -141,8 +160,8 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
               children: [
                 Text(
                   label,
-                  style: const TextStyle(
-                    color: Color(0xFF2A75C4),
+                  style: TextStyle(
+                    color: color,
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),
@@ -150,13 +169,13 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                 if (subLabel != null)
                   Text(
                     subLabel,
-                    style: const TextStyle(color: Color(0xFF2A75C4), fontSize: 12),
+                    style: TextStyle(color: color, fontSize: 12),
                   ),
               ],
             ),
           ),
           if (isRightAligned) const SizedBox(width: 8),
-          if (isRightAligned) Icon(icon, size: 20, color: Color(0xFF2A75C4)),
+          if (isRightAligned) Icon(icon, size: 20, color: color),
         ],
       ),
     );

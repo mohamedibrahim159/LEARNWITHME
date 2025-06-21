@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:learnwithme/repos/animals_repo.dart';
-import 'models/animals_model.dart';
+import '../models/animals_model.dart';
 
 class AnimalDetailScreen extends StatefulWidget {
   final int animalId;

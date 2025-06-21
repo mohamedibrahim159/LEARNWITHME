@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learnwithme/MainScreen.dart';
 import 'package:learnwithme/models/animals_model.dart';
 import 'package:learnwithme/repos/animals_repo.dart';
-import 'AnimalDetailScreen.dart';
+import 'taps/AnimalDetailScreen.dart';
 
 class AnimalGridScreen extends StatelessWidget {
   const AnimalGridScreen({super.key});

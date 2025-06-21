@@ -26,6 +26,8 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/numbers/
+    - assets/Stories/
     - assets/Alphabets/
     - assets/fonts/
     - assets/Animals/
