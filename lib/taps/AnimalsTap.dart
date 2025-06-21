@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:learnwithme/AnimalDetailScreen.dart';
+import 'package:learnwithme/taps/AnimalDetailScreen.dart';
 import 'package:learnwithme/models/animals_model.dart';
 import 'package:learnwithme/repos/animals_repo.dart';
 

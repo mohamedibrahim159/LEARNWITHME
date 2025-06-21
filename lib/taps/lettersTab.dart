@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'LettersDetailScreen.dart';
+
 class LettersTab extends StatelessWidget {
   final List<Map<String, String>> lettersData = [
     {'letter': 'A', 'image': 'apple.png'},
@@ -49,42 +51,54 @@ class LettersTab extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             final item = lettersData[index];
-            return SizedBox(
-              width: cardSize,
-              height: cardSize,
-              child: Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.bottomCenter,
-                children: [
-                  Container(
-                    width: cardSize,
-                    height: cardSize,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    padding: const EdgeInsets.all(8),
-                    child: Image.asset(
-                      'assets/Alphabets/${item['image']}',
-                      fit: BoxFit.contain,
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LetterDetailScreen(
+                      letter: item['letter']!,
                     ),
                   ),
-                  Positioned(
-                    bottom: -12,
-                    child: CircleAvatar(
-                      radius: 18,
-                      backgroundColor: Colors.red,
-                      child: Text(
-                        item['letter']!,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                );
+              },
+              child: SizedBox(
+                width: cardSize,
+                height: cardSize,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Container(
+                      width: cardSize,
+                      height: cardSize,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      padding: const EdgeInsets.all(8),
+                      child: Image.asset(
+                        'assets/Alphabets/${item['image']}',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: -12,
+                      child: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.red,
+                        child: Text(
+                          item['letter']!,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },
@@ -93,3 +107,4 @@ class LettersTab extends StatelessWidget {
     );
   }
 }
+
