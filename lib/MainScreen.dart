@@ -1,38 +1,34 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:learnwithme/AnimalDetailScreen.dart';
-import 'package:learnwithme/models/animals_model.dart';
-import 'package:learnwithme/repos/animals_repo.dart';
+import 'package:learnwithme/numbersTab.dart';
+import 'package:learnwithme/lettersTab.dart';
+import 'package:learnwithme/storyTab.dart';
+import 'AnimalsTap.dart';
 
 class AnimalsScreen extends StatefulWidget {
   @override
   State<AnimalsScreen> createState() => _AnimalsScreenState();
 }
 
-//  TODO: create the tab bar with 4 tabs and toggle between them
+class _AnimalsScreenState extends State<AnimalsScreen> {
+  int selectedIndex = 3;
 
-class _AnimalsScreenState extends State<AnimalsScreen>
-    with SingleTickerProviderStateMixin {
-  // Add a future variable to store the animals data
-  late Future<List<AnimalsModel>> _animalsFuture;
-  int selectedIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    // Initialize the future in initState
-    _animalsFuture = fetchAnimals();
-  }
+  final List<Widget> tabs = [
+    numbersTab(),
+    storyTab(),
+    LettersTab(),
+    AnimalsTab(),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -42,58 +38,28 @@ class _AnimalsScreenState extends State<AnimalsScreen>
           child: SafeArea(
             child: Column(
               children: [
-                _buildHeader(),
-                Expanded(
-                  child: FutureBuilder<List<AnimalsModel>>(
-                    future: _animalsFuture,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      }
-
-                      if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
-                      }
-
-                      if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Center(child: Text('No animals found'));
-                      }
-
-                      final animals = snapshot.data!;
-
-                      return Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 16,
-                                crossAxisSpacing: 16,
-                                childAspectRatio: 1,
-                              ),
-                          itemCount: animals.length,
-                          itemBuilder: (context, index) {
-                            final animal = animals[index];
-                            return AnimalCard(
-                              imageUrl: animal.photoUrl,
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder:
-                                        (context) => AnimalDetailScreen(
-                                          animalId: animal.animalId,
-                                        ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      );
-                    },
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildHeaderButton(
+                        icon: Icons.person,
+                        label: 'For parents',
+                        isRightAligned: true,
+                        width: screenWidth * 0.38,
+                      ),
+                      _buildHeaderButton(
+                        icon: Icons.person,
+                        label: 'Learner',
+                        subLabel: 'Age 7-8',
+                        isRightAligned: true,
+                        width: screenWidth * 0.38,
+                      ),
+                    ],
                   ),
                 ),
+                Expanded(child: tabs[selectedIndex]),
               ],
             ),
           ),
@@ -102,7 +68,7 @@ class _AnimalsScreenState extends State<AnimalsScreen>
           height: 80,
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.8),
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
@@ -117,6 +83,8 @@ class _AnimalsScreenState extends State<AnimalsScreen>
                 'assets/icons/dog_icon.png',
               ];
               final isSelected = index == selectedIndex;
+              final iconSize = isSelected ? screenWidth * 0.13 : screenWidth * 0.09;
+
               return GestureDetector(
                 onTap: () {
                   setState(() {
@@ -124,13 +92,12 @@ class _AnimalsScreenState extends State<AnimalsScreen>
                   });
                 },
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 250),
-                  curve: Curves.easeInOut,
-                  padding: EdgeInsets.only(top: 12.0),
+                  duration: const Duration(milliseconds: 250),
+                  padding: const EdgeInsets.only(top: 12.0),
                   child: Image.asset(
                     iconPaths[index],
-                    width: isSelected ? 50 : 36,
-                    height: isSelected ? 50 : 36,
+                    width: iconSize,
+                    height: iconSize,
                   ),
                 ),
               );
@@ -141,38 +108,17 @@ class _AnimalsScreenState extends State<AnimalsScreen>
     );
   }
 
-  Widget _buildHeader() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _buildHeaderButton(
-            icon: Icons.person,
-            label: 'For parents',
-            isRightAligned: true,
-          ),
-          _buildHeaderButton(
-            icon: Icons.person,
-            label: 'Learner',
-            subLabel: 'Age 7-8',
-            isRightAligned: true,
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildHeaderButton({
     required IconData icon,
     required String label,
     String? subLabel,
     bool isRightAligned = false,
+    required double width,
   }) {
     return Container(
-      width: 150,
+      width: width,
       height: 55,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.8),
         borderRadius: BorderRadius.circular(25),
@@ -180,26 +126,22 @@ class _AnimalsScreenState extends State<AnimalsScreen>
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
             blurRadius: 4,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: [
           if (!isRightAligned) Icon(icon, size: 20, color: Color(0xFF2A75C4)),
-          if (!isRightAligned) SizedBox(width: 8),
+          if (!isRightAligned) const SizedBox(width: 8),
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  isRightAligned
-                      ? CrossAxisAlignment.end
-                      : CrossAxisAlignment.start,
+              crossAxisAlignment: isRightAligned ? CrossAxisAlignment.end : CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   label,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xFF2A75C4),
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
@@ -208,79 +150,15 @@ class _AnimalsScreenState extends State<AnimalsScreen>
                 if (subLabel != null)
                   Text(
                     subLabel,
-                    style: TextStyle(color: Color(0xFF2A75C4), fontSize: 12),
+                    style: const TextStyle(color: Color(0xFF2A75C4), fontSize: 12),
                   ),
               ],
             ),
           ),
-          if (isRightAligned) SizedBox(width: 8),
+          if (isRightAligned) const SizedBox(width: 8),
           if (isRightAligned) Icon(icon, size: 20, color: Color(0xFF2A75C4)),
         ],
       ),
     );
-  }
-}
-
-class AnimalCard extends StatelessWidget {
-  final String imageUrl;
-  final VoidCallback onTap;
-
-  const AnimalCard({Key? key, required this.imageUrl, required this.onTap})
-    : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Image.network(
-            imageUrl,
-            fit: BoxFit.cover,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Center(
-                child: CircularProgressIndicator(
-                  value:
-                      loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
-                ),
-              );
-            },
-            errorBuilder: (context, error, stackTrace) {
-              return Container(
-                color: Colors.grey[200],
-                child: const Icon(Icons.pets, size: 40, color: Colors.grey),
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// get animals list
-Future<List<AnimalsModel>> fetchAnimals() async {
-  try {
-    final List<AnimalsModel> animals = await AnimalsRepo.fetchAnimals();
-    return animals;
-  } catch (e) {
-    log('❌ Error fetching animals: $e');
-    return [];
   }
 }
