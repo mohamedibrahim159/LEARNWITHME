@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'NumberDetailScreen.dart';
 
 class numbersTab extends StatelessWidget {
   final List<Map<String, String>> numbersData = [
@@ -35,22 +36,35 @@ class numbersTab extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           final item = numbersData[index];
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(14),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 4,
-                  offset: const Offset(0, 3),
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => numberDetailScreen(
+                    number: item['number']!,
+                    letter: '',
+                  ),
                 ),
-              ],
-            ),
-            padding: const EdgeInsets.all(8),
-            child: Image.asset(
-              item['image']!,
-              fit: BoxFit.contain,
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 4,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.all(8),
+              child: Image.asset(
+                item['image']!,
+                fit: BoxFit.contain,
+              ),
             ),
           );
         },

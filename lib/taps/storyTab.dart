@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'StoryDetailScreen.dart';
 
 class storyTab extends StatelessWidget {
   final List<Map<String, String>> stories = [
@@ -36,25 +37,37 @@ class storyTab extends StatelessWidget {
         itemCount: stories.length,
         itemBuilder: (context, index) {
           final story = stories[index];
-          return Container(
-            margin: const EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => storyDetailsScreen(
+                    title: story['title']!,
+                  ),
                 ),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(18),
-              child: Image.asset(
-                story['image']!,
-                fit: BoxFit.cover,
-                width: screenWidth,
-                height: imageHeight,
+              );
+            },
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(18),
+                child: Image.asset(
+                  story['image']!,
+                  fit: BoxFit.cover,
+                  width: screenWidth,
+                  height: imageHeight,
+                ),
               ),
             ),
           );
