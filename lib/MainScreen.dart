@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:learnwithme/taps/numbersTab.dart';
 import 'package:learnwithme/taps/lettersTab.dart';
 import 'package:learnwithme/taps/storyTab.dart';
+import 'package:learnwithme/user_preferences.dart';
+import 'forLearnerScreen.dart';
 import 'taps/AnimalsTap.dart';
 import 'package:flutter/services.dart';
-
 
 class AnimalsScreen extends StatefulWidget {
   @override
@@ -59,20 +60,41 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildHeaderButton(
-                        icon: Icons.person,
-                        label: 'For parents',
-                        isRightAligned: true,
-                        width: screenWidth * 0.38,
-                        color: tabAccentColors[selectedIndex],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LearnerProfileScreen(),
+                            ),
+                          );
+                        },
+
+                        child: _buildHeaderButton(
+                          icon: Icons.person,
+                          label: 'For parents',
+                          isRightAligned: true,
+                          width: screenWidth * 0.38,
+                          color: tabAccentColors[selectedIndex],
+                        ),
                       ),
-                      _buildHeaderButton(
-                        icon: Icons.person,
-                        label: 'Learner',
-                        subLabel: 'Age 7-8',
-                        isRightAligned: true,
-                        width: screenWidth * 0.38,
-                        color: tabAccentColors[selectedIndex],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LearnerProfileScreen(),
+                            ),
+                          );
+                        },
+                        child: _buildHeaderButton(
+                          icon: Icons.person,
+                          label: 'Learner',
+                          subLabel: UserPreferences.selectedAgeGroup,
+                          isRightAligned: true,
+                          width: screenWidth * 0.38,
+                          color: tabAccentColors[selectedIndex],
+                        ),
                       ),
                     ],
                   ),
@@ -101,7 +123,8 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                 'assets/icons/dog_icon.png',
               ];
               final isSelected = index == selectedIndex;
-              final iconSize = isSelected ? screenWidth * 0.13 : screenWidth * 0.09;
+              final iconSize =
+                  isSelected ? screenWidth * 0.13 : screenWidth * 0.09;
 
               return GestureDetector(
                 onTap: () {
@@ -155,7 +178,10 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
           if (!isRightAligned) const SizedBox(width: 8),
           Expanded(
             child: Column(
-              crossAxisAlignment: isRightAligned ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              crossAxisAlignment:
+                  isRightAligned
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
@@ -167,10 +193,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                   ),
                 ),
                 if (subLabel != null)
-                  Text(
-                    subLabel,
-                    style: TextStyle(color: color, fontSize: 12),
-                  ),
+                  Text(subLabel, style: TextStyle(color: color, fontSize: 12)),
               ],
             ),
           ),
