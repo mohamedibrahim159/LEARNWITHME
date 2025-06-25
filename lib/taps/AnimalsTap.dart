@@ -5,7 +5,7 @@ import 'package:learnwithme/models/animals_model.dart';
 import 'package:learnwithme/repos/animals_repo.dart';
 
 class AnimalsTab extends StatefulWidget {
-  const AnimalsTab({Key? key}) : super(key: key);
+  const AnimalsTab({super.key});
 
   @override
   State<AnimalsTab> createState() => _AnimalsTabState();
@@ -56,9 +56,9 @@ class _AnimalsTabState extends State<AnimalsTab> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AnimalDetailScreen(
-                        animalId: animal.animalId,
-                      ),
+                      builder:
+                          (context) =>
+                              AnimalDetailScreen(animalId: animal.animalId),
                     ),
                   );
                 },
@@ -75,7 +75,7 @@ class AnimalCard extends StatelessWidget {
   final String imageUrl;
   final VoidCallback onTap;
 
-  const AnimalCard({Key? key, required this.imageUrl, required this.onTap}) : super(key: key);
+  const AnimalCard({super.key, required this.imageUrl, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

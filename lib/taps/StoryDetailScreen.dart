@@ -9,7 +9,7 @@ class storyDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
+        SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: const Image(

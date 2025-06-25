@@ -32,7 +32,8 @@ flutter:
     - assets/fonts/
     - assets/Animals/
     - assets/icons/
-    - assets/json/letters.json
+    - assets/json/all_letters.json
+    - assets/json/letters_details.json
     - assets/json/animals.json
     - assets/json/numbers.json
     - assets/json/stories.json

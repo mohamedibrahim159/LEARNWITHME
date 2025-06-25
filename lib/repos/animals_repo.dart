@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:learnwithme/models/animals_model.dart';
+import 'dart:developer';
 
 class AnimalsRepo {
   // تحميل كل الحيوانات من ملف JSON المحلي
@@ -22,7 +23,7 @@ class AnimalsRepo {
 
       return data.map((json) => AnimalsModel.fromJson(json)).toList();
     } catch (e) {
-      print('❌ Error loading animals: $e');
+      log('❌ Error loading animals: $e');
       return [];
     }
   }
@@ -38,7 +39,7 @@ class AnimalsRepo {
         return null;
       }
     } catch (e) {
-      print('❌ Error finding animal by ID: $e');
+      log('❌ Error finding animal by ID: $e');
       return null;
     }
   }

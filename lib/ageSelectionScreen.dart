@@ -4,7 +4,7 @@ import 'package:learnwithme/themeData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AgeSelectionScreen extends StatelessWidget {
-  const AgeSelectionScreen({Key? key}) : super(key: key);
+  const AgeSelectionScreen({super.key});
 
   Future<void> _saveAgeAndNavigate(BuildContext context, String age) async {
     final prefs = await SharedPreferences.getInstance();

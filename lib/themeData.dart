@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class themeData {
@@ -19,22 +18,14 @@ class themeData {
   static ThemeData lightmode = ThemeData(
     primaryColor: primarycolor,
     scaffoldBackgroundColor: Colors.transparent,
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      elevation: 0,
-    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(elevation: 0),
     textTheme: TextTheme(
       bodyMedium: TextStyle(
         fontFamily: 'MVBoli',
         fontSize: 35,
         fontWeight: FontWeight.w600,
-
-    ),
-      titleMedium: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        
-
-      )
+      ),
+      titleMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
     ),
   );
 }

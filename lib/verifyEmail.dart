@@ -1,13 +1,14 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:learnwithme/themeData.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
-  const EmailVerificationScreen({Key? key}) : super(key: key);
+  const EmailVerificationScreen({super.key});
 
   @override
-  State<EmailVerificationScreen> createState() => _EmailVerificationScreenState();
+  State<EmailVerificationScreen> createState() =>
+      _EmailVerificationScreenState();
 }
 
 class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
@@ -113,7 +114,9 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   ),
                   SizedBox(height: size.height * 0.03),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.width * 0.005),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: size.width * 0.005,
+                    ),
                     child: PinCodeTextField(
                       appContext: context,
                       length: 6,
@@ -152,17 +155,19 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     child: ElevatedButton(
                       onPressed: isButtonEnabled ? () {} : null,
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
-                          if (states.contains(MaterialState.disabled)) {
-                            return Color(0xff326F4F);
-                          }
-                          return Color(0xff326F4F);
-                        }),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
+                        backgroundColor:
+                            MaterialStateProperty.resolveWith<Color>((states) {
+                              if (states.contains(MaterialState.disabled)) {
+                                return Color(0xff326F4F);
+                              }
+                              return Color(0xff326F4F);
+                            }),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
                       ),
                       child: const Text(
                         'verify',
