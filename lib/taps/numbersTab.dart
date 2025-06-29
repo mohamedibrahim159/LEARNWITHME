@@ -20,7 +20,8 @@ class numbersTab extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final crossAxisCount = 3;
     final spacing = 12.0;
-    final itemWidth = (screenWidth - (spacing * (crossAxisCount + 1))) / crossAxisCount;
+    final itemWidth =
+        (screenWidth - (spacing * (crossAxisCount + 1))) / crossAxisCount;
     final itemHeight = itemWidth + 10;
 
     return Container(
@@ -43,10 +44,7 @@ class numbersTab extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => numberDetailScreen(
-                      number: item['number']!,
-                      letter: '',
-                    ),
+                    builder: (context) => NumberDetailScreen(numberId: index),
                   ),
                 );
               },
@@ -63,10 +61,7 @@ class numbersTab extends StatelessWidget {
                   ],
                 ),
                 padding: const EdgeInsets.all(8),
-                child: Image.asset(
-                  item['image']!,
-                  fit: BoxFit.contain,
-                ),
+                child: Image.asset(item['image']!, fit: BoxFit.contain),
               ),
             );
           },

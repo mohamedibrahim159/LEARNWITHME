@@ -136,29 +136,6 @@ class StoryDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // actions: [
-            //   Padding(
-            //     padding: const EdgeInsets.all(8.0),
-            //     child: Container(
-            //       decoration: BoxDecoration(
-            //         color: Colors.white.withOpacity(0.2),
-            //         shape: BoxShape.circle,
-            //         border: Border.all(color: Colors.white.withOpacity(0.3)),
-            //       ),
-            //       child:GestureDetector(
-            //         onTap: () {
-            //           Navigator.pop(context);
-            //         },
-            //         child: Image.asset(
-            //           'assets/icons/arrow_icon.png',
-            //           width: 24,
-            //           height: 24,
-            //           color: Colors.white,
-            //         ),
-            //       )
-            //     ),
-            //   ),
-            // ],
           ),
           body: Container(
             decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
@@ -173,50 +150,8 @@ class StoryDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Story Image
-                        // Container(
-                        //   height: 200,
-                        //   width: double.infinity,
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(20),
-                        //     boxShadow: [
-                        //       BoxShadow(
-                        //         color: Colors.black.withOpacity(0.3),
-                        //         blurRadius: 20,
-                        //         offset: const Offset(0, 10),
-                        //       ),
-                        //     ],
-                        //   ),
-                        //   child: ClipRRect(
-                        //     borderRadius: BorderRadius.circular(20),
-                        //     child: Image.network(
-                        //       story['photo_url'],
-                        //       fit: BoxFit.cover,
-                        //       errorBuilder: (context, error, stackTrace) {
-                        //         return Container(
-                        //           decoration: BoxDecoration(
-                        //             gradient: LinearGradient(
-                        //               colors: [
-                        //                 Colors.purple.withOpacity(0.7),
-                        //                 Colors.blue.withOpacity(0.7),
-                        //               ],
-                        //             ),
-                        //             borderRadius: BorderRadius.circular(20),
-                        //           ),
-                        //           child: const Center(
-                        //             child: Icon(
-                        //               Icons.image_not_supported,
-                        //               color: Colors.white,
-                        //               size: 50,
-                        //             ),
-                        //           ),
-                        //         );
-                        //       },
-                        //     ),
-                        //   ),
-                        // ),
                         const SizedBox(height: 20),
-                        // Story Title
+
                         Text(
                           story['title'] ?? '',
                           style: const TextStyle(
@@ -233,28 +168,6 @@ class StoryDetailsScreen extends StatelessWidget {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        // const SizedBox(height: 8),
-                        // Story Category
-                        // Container(
-                        //   padding: const EdgeInsets.symmetric(
-                        //     horizontal: 16,
-                        //     vertical: 8,
-                        //   ),
-                        //   decoration: BoxDecoration(
-                        //     gradient: const LinearGradient(
-                        //       colors: [Color(0xFF6B73FF), Color(0xFF9B59B6)],
-                        //     ),
-                        //     borderRadius: BorderRadius.circular(20),
-                        //   ),
-                        //   child: const Text(
-                        //     'Children Story',
-                        //     style: TextStyle(
-                        //       color: Colors.white,
-                        //       fontSize: 12,
-                        //       fontWeight: FontWeight.w600,
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
