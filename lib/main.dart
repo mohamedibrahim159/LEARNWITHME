@@ -2,14 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:learnwithme/auth/data/models/forgot_password.dart';
 import 'package:learnwithme/auth/data/models/login_model.dart';
 import 'package:learnwithme/auth/data/models/register_model.dart';
 import 'package:learnwithme/auth/data/models/reset_password.dart';
 import 'package:learnwithme/auth/data/repos/auth_repo.dart';
 import 'package:learnwithme/auth/presentation/view_models/login/login_cubit.dart';
-import 'package:learnwithme/forParentScreen.dart';
 import 'package:learnwithme/loginScreen.dart';
+
+import 'package:learnwithme/ageSelectionScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,10 +29,56 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: BlocProvider(
-        create: (context) => LoginCubit(AuthRepo()),
-        child: const LoginScreen(),
-      ),
+      home: const SplashScreen(),
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  Future<void> checkLoginStatus() async {
+    final String? token = await storage.read(key: 'token');
+
+    if (token != null && token.isNotEmpty) {
+      // ✅ فيه توكن => روح للصفحة الرئيسية
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const AgeSelectionScreen()),
+      );
+    } else {
+      // ❌ مفيش توكن => روح على LoginScreen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder:
+              (context) => BlocProvider(
+                create: (context) => LoginCubit(AuthRepo()),
+                child: const LoginScreen(),
+              ),
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(child: CircularProgressIndicator(color: Colors.blue)),
     );
   }
 }
@@ -74,7 +122,7 @@ class _AuthTestScreenState extends State<AuthTestScreen> {
     final response = await authRepo.resetPassword(
       ResetPasswordRequest(
         email: 'testuser@gmail.com',
-        otpCode: '123456', // لازم تحط OTP حقيقي
+        otpCode: '123456', // 👈 لازم تحط OTP حقيقي
         newPassword: 'newpass123',
         confirmPassword: 'newpass123',
       ),
