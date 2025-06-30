@@ -1,11 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learnwithme/auth/data/models/forgot_password.dart';
 import 'package:learnwithme/auth/data/models/login_model.dart';
 import 'package:learnwithme/auth/data/models/register_model.dart';
 import 'package:learnwithme/auth/data/models/reset_password.dart';
 import 'package:learnwithme/auth/data/repos/auth_repo.dart';
+import 'package:learnwithme/auth/presentation/view_models/cubit/login_cubit.dart';
 import 'package:learnwithme/forParentScreen.dart';
 import 'package:learnwithme/loginScreen.dart';
 
@@ -25,7 +27,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const LoginScreen(),
+      home: BlocProvider(
+        create: (context) => LoginCubit(AuthRepo()),
+        child: const LoginScreen(),
+      ),
     );
   }
 }
