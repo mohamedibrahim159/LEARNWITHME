@@ -3,13 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:learnwithme/ageSelectionScreen.dart';
 import 'package:learnwithme/auth/data/models/login_model.dart';
-import 'package:learnwithme/auth/presentation/view_models/cubit/login_cubit.dart';
-import 'package:learnwithme/auth/presentation/view_models/cubit/login_state.dart';
+import 'package:learnwithme/auth/data/repos/auth_repo.dart';
+import 'package:learnwithme/auth/presentation/view_models/login/login_cubit.dart';
+import 'package:learnwithme/auth/presentation/view_models/login/login_state.dart';
+import 'package:learnwithme/auth/presentation/view_models/register/register_cubit.dart';
 import 'package:learnwithme/registerScreen.dart';
 import 'package:learnwithme/themeData.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -69,7 +71,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const RegisterScreen(),
+                                  builder:
+                                      (context) => BlocProvider(
+                                        create:
+                                            (context) =>
+                                                RegisterCubit(AuthRepo()),
+                                        child: const RegisterScreen(),
+                                      ),
                                 ),
                               );
                             },

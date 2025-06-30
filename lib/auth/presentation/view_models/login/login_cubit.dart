@@ -1,6 +1,6 @@
 import 'package:learnwithme/auth/data/models/login_model.dart';
 import 'package:learnwithme/auth/data/repos/auth_repo.dart';
-import 'package:learnwithme/auth/presentation/view_models/cubit/login_state.dart';
+import 'package:learnwithme/auth/presentation/view_models/login/login_state.dart';
 import 'package:learnwithme/services/api_service.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
