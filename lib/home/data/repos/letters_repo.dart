@@ -5,7 +5,7 @@ import 'package:learnwithme/home/presentation/models/letters_model.dart';
 class LettersRepo {
   static Future<List<LettersModel>> fetchAllLetters() async {
     final String response = await rootBundle.loadString(
-      'assets/json/letters.json',
+      'assets/json/all_letters.json',
     );
     final List<dynamic> data = json.decode(response);
     return data.map((json) => LettersModel.fromJson(json)).toList();

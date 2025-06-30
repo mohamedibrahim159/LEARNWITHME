@@ -29,7 +29,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const SplashScreen(),
+      home: BlocProvider(
+        create: (context) => LoginCubit(AuthRepo()),
+        child: const LoginScreen(),
+      ),
     );
   }
 }

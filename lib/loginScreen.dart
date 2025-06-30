@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:learnwithme/ForgetPassScreen.dart';
 import 'package:learnwithme/ageSelectionScreen.dart';
 import 'package:learnwithme/auth/data/models/login_model.dart';
 import 'package:learnwithme/auth/data/repos/auth_repo.dart';
@@ -219,7 +220,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (context) => const ForgotPasswordScreen(),
+                                ),
+                              );
+                            },
                             child: const Text(
                               'Forget password',
                               style: TextStyle(
