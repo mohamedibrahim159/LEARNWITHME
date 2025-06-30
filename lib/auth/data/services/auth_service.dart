@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:learnwithme/auth/models/forgot_password.dart';
-import 'package:learnwithme/auth/models/login_model.dart';
-import 'package:learnwithme/auth/models/register_model.dart';
-import 'package:learnwithme/auth/models/reset_password.dart';
+import 'package:learnwithme/auth/data/models/forgot_password.dart';
+import 'package:learnwithme/auth/data/models/login_model.dart';
+import 'package:learnwithme/auth/data/models/register_model.dart';
+import 'package:learnwithme/auth/data/models/reset_password.dart';
 import 'package:learnwithme/services/api_service.dart';
 
 class AuthService {

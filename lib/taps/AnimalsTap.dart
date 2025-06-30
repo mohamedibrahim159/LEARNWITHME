@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:learnwithme/taps/AnimalDetailScreen.dart';
-import 'package:learnwithme/models/animals_model.dart';
-import 'package:learnwithme/repos/animals_repo.dart';
+import 'package:learnwithme/home/presentation/models/animals_model.dart';
+import 'package:learnwithme/home/data/repos/animals_repo.dart';
 
 class AnimalsTab extends StatefulWidget {
   const AnimalsTab({super.key});

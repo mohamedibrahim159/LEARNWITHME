@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:learnwithme/models/numbers_model.dart';
+import 'package:learnwithme/home/presentation/models/numbers_model.dart';
 
 class NumbersRepo {
   Future<List<NumberModel>> fetchNumbers() async {

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:learnwithme/models/animals_model.dart';
+import 'package:learnwithme/home/presentation/models/animals_model.dart';
 import 'dart:developer';
 
 class AnimalsRepo {

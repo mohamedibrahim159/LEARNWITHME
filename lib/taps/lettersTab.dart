@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:learnwithme/models/letters_model.dart';
-import 'package:learnwithme/repos/letters_repo.dart';
+import 'package:learnwithme/home/presentation/models/letters_model.dart';
+import 'package:learnwithme/home/data/repos/letters_repo.dart';
 import 'LettersDetailScreen.dart';
 
 class LettersTab extends StatefulWidget {

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:learnwithme/repos/animals_repo.dart';
-import '../models/animals_model.dart';
+import 'package:learnwithme/home/data/repos/animals_repo.dart';
+import '../home/presentation/models/animals_model.dart';
 
 class AnimalDetailScreen extends StatefulWidget {
   final int animalId;
 
-  const AnimalDetailScreen({Key? key, required this.animalId}) : super(key: key);
+  const AnimalDetailScreen({Key? key, required this.animalId})
+    : super(key: key);
 
   @override
   State<AnimalDetailScreen> createState() => _AnimalDetailScreenState();
@@ -61,9 +62,9 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
       setState(() => isPlaying = !isPlaying);
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error playing sound: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error playing sound: $e')));
       }
     }
   }
@@ -109,65 +110,66 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
             ),
           ),
           SafeArea(
-            child: isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 20),
-                if (animal?.photoUrl != null)
-                  Center(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(300),
-                      child: Image.network(
-                        animal!.photoUrl,
-                        fit: BoxFit.cover,
-                        width: size.width * 0.75,
-                        height: size.width * 0.75,
-                      ),
-                    ),
-                  ),
-                const SizedBox(height: 80),
-                GestureDetector(
-                  onTap: _toggleSound,
-                  child: Container(
-                    width: size.width * 0.6,
-                    height: 60,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.9),
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+            child:
+                isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          isPlaying ? Icons.stop : Icons.play_arrow,
-                          size: 35,
-                          color: Colors.green,
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Divider(
-                            color: Colors.green,
-                            thickness: 2,
-                            endIndent: isPlaying ? 0 : 10,
+                        const SizedBox(height: 20),
+                        if (animal?.photoUrl != null)
+                          Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(300),
+                              child: Image.network(
+                                animal!.photoUrl,
+                                fit: BoxFit.cover,
+                                width: size.width * 0.75,
+                                height: size.width * 0.75,
+                              ),
+                            ),
+                          ),
+                        const SizedBox(height: 80),
+                        GestureDetector(
+                          onTap: _toggleSound,
+                          child: Container(
+                            width: size.width * 0.6,
+                            height: 60,
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.9),
+                              borderRadius: BorderRadius.circular(30),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  isPlaying ? Icons.stop : Icons.play_arrow,
+                                  size: 35,
+                                  color: Colors.green,
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Divider(
+                                    color: Colors.green,
+                                    thickness: 2,
+                                    endIndent: isPlaying ? 0 : 10,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:learnwithme/models/story_model.dart';
+import 'package:learnwithme/home/presentation/models/story_model.dart';
 
 class StoriesRepo {
   Future<List<StoryModel>> fetchStories() async {

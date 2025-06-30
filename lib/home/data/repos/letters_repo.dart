@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:learnwithme/models/letters_model.dart';
+import 'package:learnwithme/home/presentation/models/letters_model.dart';
 
 class LettersRepo {
   static Future<List<LettersModel>> fetchAllLetters() async {
