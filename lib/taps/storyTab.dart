@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnwithme/screens/user_preferences.dart'; // ✅ إضافة الاستيراد
 import 'StoryDetailScreen.dart';
 
 class storyTab extends StatelessWidget {
@@ -13,7 +14,6 @@ class storyTab extends StatelessWidget {
       'image': 'assets/Stories/ProudRabbitAndTortoise.png',
     },
     {'title': 'الأسد والفأر', 'image': 'assets/Stories/LionAndMouse.png'},
-
     {
       'title': 'رحلات سندباد المدهشة',
       'image': 'assets/Stories/AmazingVoyagesOfSindbad.png',
@@ -34,6 +34,9 @@ class storyTab extends StatelessWidget {
           final story = stories[index];
           return GestureDetector(
             onTap: () {
+              // ✅ زيادة عداد القصص
+              UserPreferences.incrementStories();
+
               Navigator.push(
                 context,
                 MaterialPageRoute(

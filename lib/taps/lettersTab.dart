@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:learnwithme/home/presentation/models/letters_model.dart';
 import 'package:learnwithme/home/data/repos/letters_repo.dart';
+import 'package:learnwithme/screens/user_preferences.dart'; // ✅ إضافة الملف
 import 'LettersDetailScreen.dart';
 
 class LettersTab extends StatefulWidget {
@@ -78,8 +79,6 @@ class _LettersTabState extends State<LettersTab> {
           return const Center(child: Text('No letters found'));
         }
 
-        // final lettersData = snapshot.data!;
-
         return Directionality(
           textDirection: TextDirection.ltr,
           child: Container(
@@ -97,11 +96,14 @@ class _LettersTabState extends State<LettersTab> {
                 final item = lettersData[index];
                 return GestureDetector(
                   onTap: () {
+                    // ✅ زيادة عداد الحروف عند الضغط
+                    UserPreferences.incrementLetters();
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder:
-                            (context) => LetterDetailScreen(letterId: index),
+                        builder: (context) =>
+                            LetterDetailScreen(letterId: index),
                       ),
                     );
                   },

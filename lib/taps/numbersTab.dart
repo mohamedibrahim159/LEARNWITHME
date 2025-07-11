@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnwithme/screens/user_preferences.dart'; // ✅ استدعاء ملف التخزين
 import 'NumberDetailScreen.dart';
 
 class numbersTab extends StatelessWidget {
@@ -41,6 +42,9 @@ class numbersTab extends StatelessWidget {
             final item = numbersData[index];
             return GestureDetector(
               onTap: () {
+                // ✅ زيادة العداد عند الضغط
+                UserPreferences.incrementNumbers();
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(

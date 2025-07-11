@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:learnwithme/screens/forParentScreen.dart';
 import 'package:learnwithme/taps/numbersTab.dart';
 import 'package:learnwithme/taps/lettersTab.dart';
 import 'package:learnwithme/taps/storyTab.dart';
-import 'package:learnwithme/user_preferences.dart';
+import 'package:learnwithme/screens/user_preferences.dart';
 import 'forLearnerScreen.dart';
-import 'taps/AnimalsTap.dart';
+import '../taps/AnimalsTap.dart';
 import 'package:flutter/services.dart';
 
 class AnimalsScreen extends StatefulWidget {
@@ -65,7 +66,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LearnerProfileScreen(),
+                              builder: (context) => ForParentScreen(),
                             ),
                           );
                         },
@@ -189,7 +190,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                   style: TextStyle(
                     color: color,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                    fontSize: 11,
                   ),
                 ),
                 if (subLabel != null)

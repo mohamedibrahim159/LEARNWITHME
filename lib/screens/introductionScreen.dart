@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learnwithme/MainScreen.dart';
-import 'package:learnwithme/themeData.dart';
+import 'package:learnwithme/screens/MainScreen.dart';
+import 'package:learnwithme/screens/themeData.dart';
 
 class IntroScreen extends StatelessWidget {
   const IntroScreen({super.key});

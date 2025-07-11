@@ -5,8 +5,8 @@ import 'package:learnwithme/auth/data/models/register_model.dart';
 import 'package:learnwithme/auth/data/repos/auth_repo.dart';
 import 'package:learnwithme/auth/presentation/view_models/login/login_cubit.dart';
 import 'package:learnwithme/auth/presentation/view_models/register/register_cubit.dart';
-import 'package:learnwithme/loginScreen.dart';
-import 'package:learnwithme/themeData.dart';
+import 'package:learnwithme/screens/loginScreen.dart';
+import 'package:learnwithme/screens/themeData.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

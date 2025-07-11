@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-
+import 'package:learnwithme/screens/user_preferences.dart';
 import 'MainScreen.dart';
 
-class ForParentScreen extends StatelessWidget {
+class ForParentScreen extends StatefulWidget {
   const ForParentScreen({super.key});
 
+  @override
+  State<ForParentScreen> createState() => _ForParentScreenState();
+}
+
+class _ForParentScreenState extends State<ForParentScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -38,7 +43,6 @@ class ForParentScreen extends StatelessWidget {
                 ),
               ],
             ),
-
           ),
           ClipRRect(
             borderRadius: const BorderRadius.only(
@@ -60,10 +64,10 @@ class ForParentScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                 child: Column(
                   children: [
-                    _buildActivityRow("Animal", "assets/icons/dog_icon.png", size),
-                    _buildActivityRow("Letters", "assets/icons/abc_icon.png", size),
-                    _buildActivityRow("Stories", "assets/icons/book_icon.png", size),
-                    _buildActivityRow("Numbers", "assets/icons/numbers_icon.png", size),
+                    _buildActivityRow("Animal", "assets/icons/dog_icon.png", size, UserPreferences.getAnimalCount()),
+                    _buildActivityRow("Letters", "assets/icons/abc_icon.png", size, UserPreferences.getLettersCount()),
+                    _buildActivityRow("Stories", "assets/icons/book_icon.png", size, UserPreferences.getStoriesCount()),
+                    _buildActivityRow("Numbers", "assets/icons/numbers_icon.png", size, UserPreferences.getNumbersCount()),
                     const SizedBox(height: 20),
                     const Divider(),
                     const SizedBox(height: 20),
@@ -78,21 +82,6 @@ class ForParentScreen extends StatelessWidget {
                         children: [
                           _buildOptionRow(Icons.download, "Save progress"),
                           _buildOptionRow(Icons.person, "Sign in"),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: const [
-                                  Icon(Icons.music_note, size: 22),
-                                  SizedBox(width: 10),
-                                  Text("Music"),
-                                ],
-                              ),
-                              Switch(value: true, onChanged: (_) {
-                                // Handle switch value change
-                              })
-                            ],
-                          ),
                         ],
                       ),
                     ),
@@ -107,7 +96,7 @@ class ForParentScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildActivityRow(String title, String iconPath, Size size) {
+  Widget _buildActivityRow(String title, String iconPath, Size size, int count) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Row(
@@ -118,8 +107,7 @@ class ForParentScreen extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               const SizedBox(height: 4),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -127,7 +115,10 @@ class ForParentScreen extends StatelessWidget {
                   color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Text("0 minutes", style: TextStyle(fontSize: 12)),
+                child: Text(
+                  "$count items learned",
+                  style: const TextStyle(fontSize: 12),
+                ),
               ),
             ],
           ),

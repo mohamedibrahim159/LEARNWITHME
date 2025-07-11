@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnwithme/screens/forParentScreen.dart';
 import 'user_preferences.dart';
 import 'MainScreen.dart';
 
@@ -11,41 +12,46 @@ class LearnerProfileScreen extends StatefulWidget {
 
 class _LearnerProfileScreenState extends State<LearnerProfileScreen> {
   int selectedAgeGroup = 2;
-  String learnerName = "Learner 1";
   final List<String> ageGroups = ['Age 4-5', 'Age 6-7', 'Age 7-8'];
 
+  @override
+  void initState() {
+    super.initState();
+    selectedAgeGroup = ageGroups.indexOf(UserPreferences.selectedAgeGroup);
+  }
+
   void _editName() async {
-    final controller = TextEditingController(text: learnerName);
+    final controller = TextEditingController(text: UserPreferences.selectedName);
     final result = await showDialog<String>(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            backgroundColor: Colors.white,
-            title: const Text(
-              "Edit Name",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-            content: TextField(
-              controller: controller,
-              decoration: const InputDecoration(hintText: "Enter new name"),
-              autofocus: true,
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text("Cancel"),
-              ),
-              ElevatedButton(
-                onPressed:
-                    () => Navigator.of(context).pop(controller.text.trim()),
-                child: const Text("Save"),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: const Text(
+          "Edit Name",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(hintText: "Enter new name"),
+          autofocus: true,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("Cancel"),
           ),
+          ElevatedButton(
+            onPressed: () =>
+                Navigator.of(context).pop(controller.text.trim()),
+            child: const Text("Save"),
+          ),
+        ],
+      ),
     );
+
     if (result != null && result.isNotEmpty) {
       setState(() {
-        learnerName = result;
+        UserPreferences.selectedName = result;
       });
     }
   }
@@ -107,7 +113,14 @@ class _LearnerProfileScreenState extends State<LearnerProfileScreen> {
                         vertical: 8,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ForParentScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -155,7 +168,7 @@ class _LearnerProfileScreenState extends State<LearnerProfileScreen> {
                         ),
                         SizedBox(width: size.width * 0.02),
                         Text(
-                          learnerName,
+                          UserPreferences.selectedName,
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 25,
@@ -186,8 +199,7 @@ class _LearnerProfileScreenState extends State<LearnerProfileScreen> {
                           onPressed: () {
                             setState(() {
                               selectedAgeGroup = index;
-                              UserPreferences.selectedAgeGroup =
-                                  ageGroups[index];
+                              UserPreferences.selectedAgeGroup = ageGroups[index];
                             });
                           },
                           style: ElevatedButton.styleFrom(
@@ -213,14 +225,13 @@ class _LearnerProfileScreenState extends State<LearnerProfileScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
-                                child:
-                                    isSelected
-                                        ? const Icon(
-                                          Icons.check,
-                                          color: Color(0xff42D13C),
-                                          size: 30,
-                                        )
-                                        : const SizedBox(width: 25),
+                                child: isSelected
+                                    ? const Icon(
+                                        Icons.check,
+                                        color: Color(0xff42D13C),
+                                        size: 30,
+                                      )
+                                    : const SizedBox(width: 25),
                               ),
                             ],
                           ),

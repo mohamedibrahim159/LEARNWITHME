@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:learnwithme/loginScreen.dart';
-import 'package:learnwithme/themeData.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learnwithme/auth/data/repos/auth_repo.dart';
+import 'package:learnwithme/auth/presentation/view_models/login/login_cubit.dart';
+import 'package:learnwithme/screens/loginScreen.dart';
+import 'package:learnwithme/screens/themeData.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -39,7 +42,6 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
             const Spacer(),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -62,9 +64,9 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-
             SizedBox(height: screenSize.height * 0.025),
 
+            // زر GET START مع BlocProvider
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.1),
               child: ElevatedButton(
@@ -72,7 +74,10 @@ class WelcomeScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
+                      builder: (context) => BlocProvider(
+                        create: (context) => LoginCubit(AuthRepo()),
+                        child: const LoginScreen(),
+                      ),
                     ),
                   );
                 },
@@ -98,10 +103,21 @@ class WelcomeScreen extends StatelessWidget {
 
             SizedBox(height: screenSize.height * 0.015),
 
+            // زر I ALREADY HAVE AN ACCOUNT (لم يتم التعديل عليه)
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.1),
               child: OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                        create: (context) => LoginCubit(AuthRepo()),
+                        child: const LoginScreen(),
+                      ),
+                    ),
+                  );
+                },
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.white,
                   minimumSize: Size(double.infinity, screenSize.height * 0.07),

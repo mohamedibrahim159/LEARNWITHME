@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:learnwithme/ForgetPassScreen.dart';
+import 'package:learnwithme/screens/ForgetPassScreen.dart';
 import 'package:learnwithme/ageSelectionScreen.dart';
 import 'package:learnwithme/auth/data/models/login_model.dart';
 import 'package:learnwithme/auth/data/repos/auth_repo.dart';
 import 'package:learnwithme/auth/presentation/view_models/login/login_cubit.dart';
 import 'package:learnwithme/auth/presentation/view_models/login/login_state.dart';
 import 'package:learnwithme/auth/presentation/view_models/register/register_cubit.dart';
-import 'package:learnwithme/registerScreen.dart';
-import 'package:learnwithme/themeData.dart';
+import 'package:learnwithme/screens/genderScreen.dart';
+import 'package:learnwithme/screens/registerScreen.dart';
+import 'package:learnwithme/screens/themeData.dart';
+import 'package:learnwithme/screens/welcomeScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -62,8 +64,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       SizedBox(height: size.height * 0.02),
-
-                      // Top Buttons
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -72,13 +72,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder:
-                                      (context) => BlocProvider(
-                                        create:
-                                            (context) =>
-                                                RegisterCubit(AuthRepo()),
-                                        child: const RegisterScreen(),
-                                      ),
+                                  builder: (context) => BlocProvider(
+                                    create: (context) => RegisterCubit(AuthRepo()),
+                                    child: const RegisterScreen(),
+                                  ),
                                 ),
                               );
                             },
@@ -111,8 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder:
-                                      (context) => const AgeSelectionScreen(),
+                                  builder: (context) => const GenderScreen(),
                                 ),
                               );
                             },
@@ -141,9 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
-
                       SizedBox(height: size.height * 0.15),
-
                       Text(
                         'welcome back!',
                         style: TextStyle(
@@ -164,7 +158,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       SizedBox(height: size.height * 0.04),
-
                       buildTextField(
                         'Email',
                         Icons.mail_outline,
@@ -180,7 +173,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       SizedBox(height: size.height * 0.02),
-
                       buildTextField(
                         'Password',
                         Icons.lock_outline,
@@ -197,16 +189,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       SizedBox(height: size.height * 0.02),
-
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
                               Switch(
                                 value: _rememberMe,
-                                onChanged:
-                                    (val) => setState(() => _rememberMe = val),
+                                onChanged: (val) => setState(() => _rememberMe = val),
                                 activeColor: Colors.amber,
                               ),
                               const Text(
@@ -214,34 +203,36 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                   fontFamily: 'MVBoli',
                                   color: Colors.white,
-                                  fontSize: 15,
+                                  fontSize: 14,
                                 ),
                               ),
                             ],
                           ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder:
-                                      (context) => const ForgotPasswordScreen(),
+                          const Spacer(),
+                          Flexible(
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ForgotPasswordScreen(),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                'Forget password',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontFamily: 'MVBoli',
+                                  color: Colors.white,
+                                  fontSize: 14,
                                 ),
-                              );
-                            },
-                            child: const Text(
-                              'Forget password',
-                              style: TextStyle(
-                                fontFamily: 'MVBoli',
-                                color: Colors.white,
-                                fontSize: 15,
                               ),
                             ),
                           ),
                         ],
                       ),
                       SizedBox(height: size.height * 0.03),
-
                       BlocConsumer<LoginCubit, LoginState>(
                         listener: (context, state) {
                           if (state is LoginSuccess) {
@@ -255,8 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder:
-                                    (context) => const AgeSelectionScreen(),
+                                builder: (context) => const GenderScreen(),
                               ),
                             );
                           } else if (state is LoginFailure) {
@@ -271,24 +261,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         builder: (context, state) {
                           return ElevatedButton(
-                            onPressed:
-                                state is LoginLoading
-                                    ? null
-                                    : () {
-                                      if (_formKey.currentState!.validate()) {
-                                        final email =
-                                            _emailController.text.trim();
-                                        final password =
-                                            _passwordController.text.trim();
-                                        final request = LoginRequest(
-                                          email: email,
-                                          password: password,
-                                        );
-                                        context.read<LoginCubit>().loginUser(
-                                          request,
-                                        );
-                                      }
-                                    },
+                            onPressed: state is LoginLoading
+                                ? null
+                                : () {
+                                    if (_formKey.currentState!.validate()) {
+                                      final email = _emailController.text.trim();
+                                      final password = _passwordController.text.trim();
+                                      final request = LoginRequest(
+                                        email: email,
+                                        password: password,
+                                      );
+                                      context.read<LoginCubit>().loginUser(request);
+                                    }
+                                  },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.transparent,
                               shape: RoundedRectangleBorder(
@@ -299,53 +284,43 @@ class _LoginScreenState extends State<LoginScreen> {
                                 vertical: size.height * 0.02,
                               ),
                             ),
-                            child:
-                                state is LoginLoading
-                                    ? Center(
-                                      child: SizedBox(
-                                        width: 24,
-                                        height: 24,
-                                        child: const CircularProgressIndicator(
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                    )
-                                    : Text(
-                                      'Log in',
-                                      style: TextStyle(
-                                        color: themeData.whitecolor,
-                                        fontFamily: 'MVBoli',
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w900,
+                            child: state is LoginLoading
+                                ? const Center(
+                                    child: SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.blue,
                                       ),
                                     ),
+                                  )
+                                : Text(
+                                    'Log in',
+                                    style: TextStyle(
+                                      color: themeData.whitecolor,
+                                      fontFamily: 'MVBoli',
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
                           );
                         },
                       ),
-
                       SizedBox(height: size.height * 0.03),
-
                       Row(
                         children: [
                           Expanded(child: Divider(color: Colors.white54)),
                           Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.03,
-                            ),
+                            padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
                             child: const Text(
                               'or login with',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
+                              style: TextStyle(color: Colors.white, fontSize: 14),
                             ),
                           ),
                           Expanded(child: Divider(color: Colors.white54)),
                         ],
                       ),
-
                       SizedBox(height: size.height * 0.03),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -400,9 +375,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
-
                       SizedBox(height: size.height * 0.06),
-
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: OutlinedButton(
@@ -421,17 +394,27 @@ class _LoginScreenState extends State<LoginScreen> {
                               vertical: 8,
                             ),
                           ),
-                          child: const Text(
-                            'Back',
-                            style: TextStyle(
-                              fontFamily: 'MVBoli',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                          child: GestureDetector(
+                            onTap: () {
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const WelcomeScreen(),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              'Back',
+                              style: TextStyle(
+                                fontFamily: 'MVBoli',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                         ),
                       ),
-
                       SizedBox(height: size.height * 0.02),
                     ],
                   ),
@@ -465,21 +448,15 @@ class _LoginScreenState extends State<LoginScreen> {
           hintText: hint,
           hintStyle: TextStyle(color: Colors.grey.shade500),
           prefixIcon: Icon(icon, color: Colors.grey.shade600),
-          suffixIcon:
-              isPassword
-                  ? IconButton(
-                    icon: Icon(
-                      _isPasswordVisible
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color: Colors.grey.shade600,
-                    ),
-                    onPressed:
-                        () => setState(
-                          () => _isPasswordVisible = !_isPasswordVisible,
-                        ),
-                  )
-                  : null,
+          suffixIcon: isPassword
+              ? IconButton(
+                  icon: Icon(
+                    _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.grey.shade600,
+                  ),
+                  onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+                )
+              : null,
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(
             vertical: 16,

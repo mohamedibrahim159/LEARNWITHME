@@ -9,9 +9,10 @@ import 'package:learnwithme/auth/data/models/register_model.dart';
 import 'package:learnwithme/auth/data/models/reset_password.dart';
 import 'package:learnwithme/auth/data/repos/auth_repo.dart';
 import 'package:learnwithme/auth/presentation/view_models/login/login_cubit.dart';
-import 'package:learnwithme/loginScreen.dart';
+import 'package:learnwithme/screens/loginScreen.dart';
 
 import 'package:learnwithme/ageSelectionScreen.dart';
+import 'package:learnwithme/screens/video_splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider(
         create: (context) => LoginCubit(AuthRepo()),
-        child: const LoginScreen(),
+        child: VideoSplashScreen(),
       ),
     );
   }

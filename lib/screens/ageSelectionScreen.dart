@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learnwithme/introductionScreen.dart';
-import 'package:learnwithme/themeData.dart';
+import 'package:learnwithme/screens/introductionScreen.dart';
+import 'package:learnwithme/screens/themeData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AgeSelectionScreen extends StatelessWidget {
@@ -9,6 +9,13 @@ class AgeSelectionScreen extends StatelessWidget {
   Future<void> _saveAgeAndNavigate(BuildContext context, String age) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('child_age', age);
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const IntroScreen(),
+      ),
+    );
   }
 
   @override

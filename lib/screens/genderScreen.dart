@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:learnwithme/themeData.dart';
+import 'package:learnwithme/ageSelectionScreen.dart';
+import 'package:learnwithme/screens/themeData.dart';
+import 'package:learnwithme/screens/user_preferences.dart';
 
 class GenderScreen extends StatefulWidget {
   const GenderScreen({super.key});
@@ -53,7 +55,16 @@ class _GenderScreenState extends State<GenderScreen> {
                           borderRadius: BorderRadius.circular(17),
                         ),
                       ),
-                      child: const Text('Skip', style: TextStyle(color: Colors.white, fontSize: 20)),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AgeSelectionScreen(),
+                        ),
+                      );
+                        },
+                        child: const Text('Skip', style: TextStyle(color: Colors.white, fontSize: 20))),
                     ),
                   ),
                 ),
@@ -122,7 +133,14 @@ class _GenderScreenState extends State<GenderScreen> {
 
                 Center(
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AgeSelectionScreen(),
+                        ),
+                      );
+                    },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -145,14 +163,22 @@ class _GenderScreenState extends State<GenderScreen> {
                 ),
 
 
-                SizedBox(height: size.height * 0.03),
+                SizedBox(height: size.height * 0.05),
 
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
                   child: Column(
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                           UserPreferences.selectedName = nameController.text.trim();
+                          Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AgeSelectionScreen(),
+                        ),
+                      );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           elevation: 0,
@@ -163,27 +189,12 @@ class _GenderScreenState extends State<GenderScreen> {
                           ),
                         ),
                         child: const Text('Next',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
                       ),
 
                       SizedBox(height: size.height * 0.03),
 
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(color: themeData.whitecolor, width: 3),
-                              borderRadius: BorderRadius.circular(19),
-                            ),
-                          ),
-                          child: const Text('Back',
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
-                        ),
-                      ),
+                     
 
                       SizedBox(height: size.height * 0.03),
                     ],

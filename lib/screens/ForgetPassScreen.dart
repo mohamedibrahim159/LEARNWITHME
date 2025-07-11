@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learnwithme/auth/data/repos/auth_repo.dart';
 import 'package:learnwithme/auth/presentation/view_models/forget_password/forget_password_cubit.dart';
 import 'package:learnwithme/auth/presentation/view_models/reset_password/reset_password_cubit.dart';
-import 'package:learnwithme/newpassScreen.dart';
-import 'package:learnwithme/themeData.dart';
+import 'package:learnwithme/screens/newpassScreen.dart';
+import 'package:learnwithme/screens/themeData.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
