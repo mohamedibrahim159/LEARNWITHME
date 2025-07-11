@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnwithme/screens/user_preferences.dart'; // ✅ استدعاء ملف التخزين
 import 'NumberDetailScreen.dart';
 
 class numbersTab extends StatelessWidget {
@@ -20,7 +21,8 @@ class numbersTab extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final crossAxisCount = 3;
     final spacing = 12.0;
-    final itemWidth = (screenWidth - (spacing * (crossAxisCount + 1))) / crossAxisCount;
+    final itemWidth =
+        (screenWidth - (spacing * (crossAxisCount + 1))) / crossAxisCount;
     final itemHeight = itemWidth + 10;
 
     return Container(
@@ -40,13 +42,13 @@ class numbersTab extends StatelessWidget {
             final item = numbersData[index];
             return GestureDetector(
               onTap: () {
+                // ✅ زيادة العداد عند الضغط
+                UserPreferences.incrementNumbers();
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => numberDetailScreen(
-                      number: item['number']!,
-                      letter: '',
-                    ),
+                    builder: (context) => NumberDetailScreen(numberId: index),
                   ),
                 );
               },
@@ -63,10 +65,7 @@ class numbersTab extends StatelessWidget {
                   ],
                 ),
                 padding: const EdgeInsets.all(8),
-                child: Image.asset(
-                  item['image']!,
-                  fit: BoxFit.contain,
-                ),
+                child: Image.asset(item['image']!, fit: BoxFit.contain),
               ),
             );
           },

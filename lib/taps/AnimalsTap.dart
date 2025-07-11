@@ -1,11 +1,12 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:learnwithme/taps/AnimalDetailScreen.dart';
-import 'package:learnwithme/models/animals_model.dart';
-import 'package:learnwithme/repos/animals_repo.dart';
+import 'package:learnwithme/home/presentation/models/animals_model.dart';
+import 'package:learnwithme/home/data/repos/animals_repo.dart';
+import 'package:learnwithme/screens/user_preferences.dart'; // ✅ تم إضافة الاستدعاء
 
 class AnimalsTab extends StatefulWidget {
-  const AnimalsTab({Key? key}) : super(key: key);
+  const AnimalsTab({super.key});
 
   @override
   State<AnimalsTab> createState() => _AnimalsTabState();
@@ -53,12 +54,12 @@ class _AnimalsTabState extends State<AnimalsTab> {
               return AnimalCard(
                 imageUrl: animal.photoUrl,
                 onTap: () {
+                  UserPreferences.incrementAnimal(); // ✅ زيادة عداد الحيوانات
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AnimalDetailScreen(
-                        animalId: animal.animalId,
-                      ),
+                      builder: (context) =>
+                          AnimalDetailScreen(animalId: animal.animalId),
                     ),
                   );
                 },
@@ -75,7 +76,7 @@ class AnimalCard extends StatelessWidget {
   final String imageUrl;
   final VoidCallback onTap;
 
-  const AnimalCard({Key? key, required this.imageUrl, required this.onTap}) : super(key: key);
+  const AnimalCard({super.key, required this.imageUrl, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

@@ -1,15 +1,108 @@
 import 'package:flutter/material.dart';
+import 'package:learnwithme/services/video_player_service.dart';
 
-class storyDetailsScreen extends StatelessWidget {
-  final String title;
+class StoryDetailsScreen extends StatelessWidget {
+  final int storyId;
 
-  const storyDetailsScreen({super.key, required this.title});
+  StoryDetailsScreen({super.key, required this.storyId});
+
+  final List<Map<String, dynamic>> stories = [
+    {
+      "story_id": 1,
+      "category_id": 4,
+      "title": "The Ugly Duckling",
+      "video_url":
+          "https://hemdanmohamed44.runasp.net/video/Stories/UglyDuckling.mp4",
+      "photo_url":
+          "https://hemdanmohamed44.runasp.net/images/Stories/UglyDuckling.png",
+      "category": null,
+    },
+    {
+      "story_id": 2,
+      "category_id": 4,
+      "title": "Rabbit and Clever Fox",
+      "video_url":
+          "https://hemdanmohamed44.runasp.net/video/Stories/RabbitAndCleverFox.mp4",
+      "photo_url":
+          "https://hemdanmohamed44.runasp.net/images/Stories/RabbitAndCleverFox.png",
+      "category": null,
+    },
+    {
+      "story_id": 3,
+      "category_id": 4,
+      "title": "Proud Rabbit and Tortoise",
+      "video_url":
+          "https://hemdanmohamed44.runasp.net/video/Stories/ProudRabbitAndTortoise.mp4",
+      "photo_url":
+          "https://hemdanmohamed44.runasp.net/images/Stories/ProudRabbitAndTortoise.png",
+      "category": null,
+    },
+    {
+      "story_id": 4,
+      "category_id": 4,
+      "title": "Lion and Mouse",
+      "video_url":
+          "https://hemdanmohamed44.runasp.net/video/Stories/LionAndMouse.mp4",
+      "photo_url":
+          "https://hemdanmohamed44.runasp.net/images/Stories/LionAndMouse.png",
+      "category": null,
+    },
+    {
+      "story_id": 5,
+      "category_id": 4,
+      "title": "Amazing Voyages of Sindbad",
+      "video_url":
+          "https://hemdanmohamed44.runasp.net/video/Stories/AmazingVoyagesOfSindbad.mp4",
+      "photo_url":
+          "https://hemdanmohamed44.runasp.net/images/Stories/AmazingVoyagesOfSindbad.png",
+      "category": null,
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
+    final story = stories.firstWhere(
+      (s) => s['story_id'] == storyId,
+      orElse: () => {},
+    );
+
+    if (story.isEmpty) {
+      return Scaffold(
+        body: Stack(
+          children: [
+            SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: const Image(
+                image: AssetImage("assets/images/api_background.png.jpeg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            const Center(
+              child: Text(
+                'Story not found',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                      color: Colors.black54,
+                      offset: Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Stack(
       children: [
-        Container(
+        SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: const Image(
@@ -17,23 +110,165 @@ class storyDetailsScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        Positioned(
-          top: 50,
-          left: 25,
-          child: SafeArea(
-            child: GestureDetector(
-              onTap: () => Navigator.pop(context),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Container(
-                padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withOpacity(0.2),
                   shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white.withOpacity(0.3)),
                 ),
-                child: Image.asset(
-                  'assets/icons/arrow_icon.png',
-                  width: 40,
-                  height: 40,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Image.asset(
+                    'assets/icons/arrow_icon.png',
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
+              ),
+            ),
+          ),
+          body: Container(
+            decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
+            child: SafeArea(
+              child: Column(
+                children: [
+                  const SizedBox(height: 100),
+                  // Story Header
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 20),
+
+                        Text(
+                          story['title'] ?? '',
+                          style: const TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black54,
+                                offset: Offset(2, 2),
+                                blurRadius: 4,
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  // Video Player Container
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      height: 400,
+                      margin: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(24),
+                        child: Column(
+                          children: [
+                            // Video Header
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xFF4682B4),
+                                    Color(0xFF87CEEB),
+                                  ],
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(24),
+                                  topRight: Radius.circular(24),
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.play_circle_fill,
+                                    color: Colors.white,
+                                    size: 24,
+                                  ),
+                                  const SizedBox(width: 12),
+                                  const Text(
+                                    'Watch Story',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(0.2),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: const Text(
+                                      'HD',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // Video Player
+                            Expanded(
+                              child: Container(
+                                // margin: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(0),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(0),
+                                  child: VideoPlayerWidget(
+                                    videoUrl: story['video_url'],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
               ),
             ),
           ),

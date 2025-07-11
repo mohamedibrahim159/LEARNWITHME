@@ -14,5 +14,29 @@
     "video_url": "https://hemdanmohamed44.runasp.net/video/Stories/RabbitAndCleverFox.mp4",
     "photo_url": "https://hemdanmohamed44.runasp.net/images/Stories/RabbitAndCleverFox.png",
     "category": null
+  },
+  {
+    "story_id": 3,
+    "category_id": 4,
+    "title": "Proud Rabbit and Tortoise",
+    "video_url": "https://hemdanmohamed44.runasp.net/video/Stories/ProudRabbitAndTortoise.mp4",
+    "photo_url": "https://hemdanmohamed44.runasp.net/images/Stories/ProudRabbitAndTortoise.png",
+    "category": null
+  },
+  {
+    "story_id": 4,
+    "category_id": 4,
+    "title": "Lion and Mouse",
+    "video_url": "https://hemdanmohamed44.runasp.net/video/Stories/LionAndMouse.mp4",
+    "photo_url": "https://hemdanmohamed44.runasp.net/images/Stories/LionAndMouse.png",
+    "category": null
+  },
+  {
+    "story_id": 5,
+    "category_id": 4,
+    "title": "Amazing Voyages of Sindbad",
+    "video_url": "https://hemdanmohamed44.runasp.net/video/Stories/AmazingVoyagesOfSindbad.mp4",
+    "photo_url": "https://hemdanmohamed44.runasp.net/images/Stories/AmazingVoyagesOfSindbad.png",
+    "category": null
   }
 ]

@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:learnwithme/screens/user_preferences.dart'; // ✅ إضافة الاستيراد
 import 'StoryDetailScreen.dart';
 
 class storyTab extends StatelessWidget {
   final List<Map<String, String>> stories = [
+    {'title': 'البطة القبيحة', 'image': 'assets/Stories/UglyDuckling.png'},
     {
       'title': 'الأرنب والثعلب المكار',
       'image': 'assets/Stories/abbitAndCleverFox.jpg',
     },
     {
-      'title': 'الأسد والفأر',
-      'image': 'assets/Stories/LionAndMouse.png',
-    },
-    {
       'title': 'الأرنب والسلحفاة',
       'image': 'assets/Stories/ProudRabbitAndTortoise.png',
     },
-    {
-      'title': 'البطة القبيحة',
-      'image': 'assets/Stories/UglyDuckling.png',
-    },
+    {'title': 'الأسد والفأر', 'image': 'assets/Stories/LionAndMouse.png'},
     {
       'title': 'رحلات سندباد المدهشة',
       'image': 'assets/Stories/AmazingVoyagesOfSindbad.png',
@@ -39,12 +34,13 @@ class storyTab extends StatelessWidget {
           final story = stories[index];
           return GestureDetector(
             onTap: () {
+              // ✅ زيادة عداد القصص
+              UserPreferences.incrementStories();
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => storyDetailsScreen(
-                    title: story['title']!,
-                  ),
+                  builder: (context) => StoryDetailsScreen(storyId: index + 1),
                 ),
               );
             },
